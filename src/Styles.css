@@ -7,3 +7,27 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
   width: 95%;
   margin: 0 auto;
 }
+
+.league-grid {
+  display: grid;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 20px;
+}
+
+.league-grid li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.team-name {
+  text-align: center;
+}
+
+.team-badge {
+  max-width: 100px;
+}
