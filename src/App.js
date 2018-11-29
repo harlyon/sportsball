@@ -56,6 +56,11 @@ class App extends Component {
     dbRef.push(userSelectedTeam);
     console.log('The team being added is', userSelectedTeam.teamName, userSelectedTeam.teamID)
   }
+  removeTeam = (e) => {
+    const firebaseKey = e.target.id;
+    const teamRef = firebase.database().ref(`/${firebaseKey}`);
+    teamRef.remove();
+  }
   render() {
     return (
       <div className="App">
@@ -73,7 +78,8 @@ class App extends Component {
         <main>
           <div className="wrapper">
             <DisplayTeams 
-              favoriteTeams={this.state.favoriteTeams}/>
+              favoriteTeams={this.state.favoriteTeams}
+              removeTeam={this.removeTeam}/>
             <TeamForm 
               teams={this.state.teamsByLeague}
               captureTeam={this.captureTeam}/>
