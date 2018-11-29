@@ -5,8 +5,8 @@ import firebase from './firebase';
 
 // class-based/simple functional components
 import LeagueForm from './LeagueForm';
-import TeamForm from './TeamForm';
-import DisplayTeams from './DisplayTeams';
+import TeamForm from './TeamList';
+import DisplayFavoriteTeams from './DisplayFavoriteTeams';
 
 
 // reference to the root of the firebase database
@@ -47,6 +47,7 @@ class App extends Component {
     })
   }
   captureTeam = (e) => {
+    e.preventDefault();
     const userSelectedTeam = {
       teamBadge: e.target.getAttribute('data-team-badge'),
       teamID: e.target.id,
@@ -67,19 +68,23 @@ class App extends Component {
         <header>
           <div className="wrapper">
             <h1>Fan Feed</h1>
+            <div>
+              <button>My Teams</button>
+              <button>Leagues</button>
+            </div>
+          </div>
+        </header>
+        <main>
+          <div className="wrapper">
+            <DisplayFavoriteTeams 
+              favoriteTeams={this.state.favoriteTeams}
+              removeTeam={this.removeTeam}/>
             <LeagueForm 
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
               league={this.state.league}
               teams={this.state.teamsByLeague}
               />
-          </div>
-        </header>
-        <main>
-          <div className="wrapper">
-            <DisplayTeams 
-              favoriteTeams={this.state.favoriteTeams}
-              removeTeam={this.removeTeam}/>
             <TeamForm 
               teams={this.state.teamsByLeague}
               captureTeam={this.captureTeam}/>

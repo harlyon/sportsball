@@ -1,7 +1,7 @@
 import React from 'react';
 
 // single function component
-const TeamForm = (props) => {
+const TeamList = (props) => {
   return (
     // <ul className="league-grid">
     //   {
@@ -16,31 +16,29 @@ const TeamForm = (props) => {
     //   }
     // </ul>
     <form action="">
-      <fieldset>
+      <div className="team-by-league">
         {
           props.teams.map((team) => {
             return (
               <div key={team.idTeam}>
-                <input 
-                type="checkbox" 
-                id={team.idTeam}
-                name="team"
-                value={team.strLeague}
-                data-team-name={team.strTeam}
-                data-team-badge={team.strTeamBadge}
-                
-                onChange={props.captureTeam}/>
-                <label htmlFor={team.idTeam}>
-                  <h2 className="team-name">{team.strTeam}</h2>
-                  <img src={team.strTeamBadge} alt={team.strTeam} className="team-badge" />
-                </label>
+                <button
+                  className="team-button"
+                  type="checkbox"
+                  id={team.idTeam}
+                  value={team.strLeague}
+                  data-team-name={team.strTeam}
+                  data-team-badge={team.strTeamBadge}
+                  onClick={props.captureTeam}>
+                    <h2 className="team-name">{team.strTeam}</h2>
+                    <img src={team.strTeamBadge} alt={team.strTeam} className="team-badge" />
+                </button>
               </div>
             )
           })
         }
-      </fieldset>
+      </div>
     </form>
   )
 }
 
-export default TeamForm;
+export default TeamList;
