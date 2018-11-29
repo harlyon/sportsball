@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import firebase from './firebase';
+
+
+// class-based/simple functional components
 import LeagueForm from './LeagueForm';
 import TeamForm from './TeamForm';
+
+
+// reference to the root of the firebase database
+const dbRef = firebase.database().ref();
 
 class App extends Component {
   constructor() {
@@ -9,8 +17,15 @@ class App extends Component {
     this.state = {
       league: 'mlb',
       teamsByLeague: [],
-      favoriteTeams: []
+      favoriteTeams: {}
     }
+  }
+  componentDidMount() {
+    dbRef.on('value', (snapshot) => {
+      this.setState({
+        favoriteTeams: snapshot.val()
+      })
+    });
   }
   handleSubmit = (e) => {
     e.preventDefault();
@@ -31,14 +46,15 @@ class App extends Component {
     })
   }
   captureTeam = (e) => {
-    const userSelectedTeam = this.state.favoriteTeams;
-    userSelectedTeam.push(e.target.value);
-    this.setState({
-      favoriteTeams: userSelectedTeam
-    });
-    console.log('the team ID being added', e.target.value);
-    console.log('the unchanged full team array', this.state.teamsByLeague);
-    console.log('the updated list of fav teams', this.state.favoriteTeams);
+    const userSelectedTeam = {
+      teamName: e.target.getAttribute('data-teamname'),
+      teamID: e.target.id,
+      teamLeague: e.target.value,
+    }
+    dbRef.push(userSelectedTeam);
+
+    console.log('The team being added is', userSelectedTeam.teamName, userSelectedTeam.teamID)
+    console.log('The updated list of favorite teams', this.state.favoriteTeams)
   }
   render() {
     return (

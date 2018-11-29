@@ -25,8 +25,8 @@ const TeamForm = (props) => {
                 type="checkbox" 
                 id={team.idTeam}
                 name="team"
-                // value={team.idTeam}
-                value={team.strTeam}
+                value={team.strLeague}
+                data-teamname={team.strTeam}
                 onChange={props.captureTeam}/>
                 <label htmlFor={team.idTeam}>
                   <h2 className="team-name">{team.strTeam}</h2>
