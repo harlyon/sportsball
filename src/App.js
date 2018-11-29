@@ -6,6 +6,7 @@ import firebase from './firebase';
 // class-based/simple functional components
 import LeagueForm from './LeagueForm';
 import TeamForm from './TeamForm';
+import DisplayTeams from './DisplayTeams';
 
 
 // reference to the root of the firebase database
@@ -47,14 +48,13 @@ class App extends Component {
   }
   captureTeam = (e) => {
     const userSelectedTeam = {
-      teamName: e.target.getAttribute('data-teamname'),
+      teamBadge: e.target.getAttribute('data-team-badge'),
       teamID: e.target.id,
       teamLeague: e.target.value,
+      teamName: e.target.getAttribute('data-team-name'),
     }
     dbRef.push(userSelectedTeam);
-
     console.log('The team being added is', userSelectedTeam.teamName, userSelectedTeam.teamID)
-    console.log('The updated list of favorite teams', this.state.favoriteTeams)
   }
   render() {
     return (
@@ -72,6 +72,8 @@ class App extends Component {
         </header>
         <main>
           <div className="wrapper">
+            <DisplayTeams 
+              favoriteTeams={this.state.favoriteTeams}/>
             <TeamForm 
               teams={this.state.teamsByLeague}
               captureTeam={this.captureTeam}/>

@@ -26,7 +26,9 @@ const TeamForm = (props) => {
                 id={team.idTeam}
                 name="team"
                 value={team.strLeague}
-                data-teamname={team.strTeam}
+                data-team-name={team.strTeam}
+                data-team-badge={team.strTeamBadge}
+                
                 onChange={props.captureTeam}/>
                 <label htmlFor={team.idTeam}>
                   <h2 className="team-name">{team.strTeam}</h2>
