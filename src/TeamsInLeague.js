@@ -1,24 +1,13 @@
 import React from 'react';
 
 // single function component
-const TeamList = (props) => {
+// ⬇️ destructuring props
+const TeamsInLeague = ({teams, captureTeam}) => {
   return (
-    // <ul className="league-grid">
-    //   {
-    //     props.teams.map((team) => {
-    //       return (
-    //         <li key={team.idTeam} className="league-grid-item">
-    //           <h2 className="team-name">{team.strTeam}</h2>
-    //           <img src={team.strTeamBadge} alt={team.strTeam} className="team-badge"/>
-    //         </li>
-    //       )
-    //     })
-    //   }
-    // </ul>
     <form action="">
       <div className="team-by-league">
         {
-          props.teams.map((team) => {
+          teams.map((team) => {
             return (
               <div key={team.idTeam}>
                 <button
@@ -28,7 +17,7 @@ const TeamList = (props) => {
                   value={team.strLeague}
                   data-team-name={team.strTeam}
                   data-team-badge={team.strTeamBadge}
-                  onClick={props.captureTeam}>
+                  onClick={captureTeam}>
                     <h2 className="team-name">{team.strTeam}</h2>
                     <img src={team.strTeamBadge} alt={team.strTeam} className="team-badge" />
                 </button>
@@ -41,4 +30,4 @@ const TeamList = (props) => {
   )
 }
 
-export default TeamList;
+export default TeamsInLeague;
