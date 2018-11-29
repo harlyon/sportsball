@@ -9,7 +9,8 @@ class DisplayTeams extends Component {
       <div>
         <h2>My teams</h2>
         {
-          Object.entries(this.props.favoriteTeams).map((team) => {
+          this.props.favoriteTeams
+          ? Object.entries(this.props.favoriteTeams).map((team) => {
             return (
               <div key={team[0]}>
                 <h3>{team[1].teamName}</h3>
@@ -23,6 +24,8 @@ class DisplayTeams extends Component {
               </div>
             )
           })
+          :
+          <p>Not a fan?</p>
         }
       </div>
     )
