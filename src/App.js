@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import PrintTeams from './PrintTeams';
-import Form from './Form';
+import LeagueForm from './LeagueForm';
+import TeamForm from './TeamForm';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       league: 'mlb',
-      teams: []
+      teamsByLeague: [],
+      favoriteTeams: []
     }
   }
   handleSubmit = (e) => {
@@ -24,10 +25,20 @@ class App extends Component {
     Axios.get(`https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=${this.state.league}`, {
     }).then((res) => {
       this.setState({
-        teams: res.data.teams
+        teamsByLeague: res.data.teams
       })
-      console.log(this.state.league, this.state.teams)
+      console.log(this.state.league, this.state.teamsByLeague)
     })
+  }
+  captureTeam = (e) => {
+    const userSelectedTeam = this.state.favoriteTeams;
+    userSelectedTeam.push(e.target.value);
+    this.setState({
+      favoriteTeams: userSelectedTeam
+    });
+    console.log('the team ID being added', e.target.value);
+    console.log('the unchanged full team array', this.state.teamsByLeague);
+    console.log('the updated list of fav teams', this.state.favoriteTeams);
   }
   render() {
     return (
@@ -35,17 +46,19 @@ class App extends Component {
         <header>
           <div className="wrapper">
             <h1>Fan Feed</h1>
-            <Form 
+            <LeagueForm 
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
               league={this.state.league}
-              teams={this.state.teams}
+              teams={this.state.teamsByLeague}
               />
           </div>
         </header>
         <main>
           <div className="wrapper">
-            <PrintTeams teams={this.state.teams}/>
+            <TeamForm 
+              teams={this.state.teamsByLeague}
+              captureTeam={this.captureTeam}/>
           </div>
         </main>
       </div>

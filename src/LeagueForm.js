@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class Form extends Component {
+class LeagueForm extends Component {
   render() {
     return (
       <form
@@ -28,4 +28,4 @@ class Form extends Component {
   }
 }
 
-export default Form;
+export default LeagueForm;
