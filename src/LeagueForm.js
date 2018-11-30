@@ -14,10 +14,10 @@ class LeagueForm extends Component {
           placeholder="Please select a league"
           value={this.props.league}
           onChange={this.props.handleChange}>
-          <option value="mlb">Major League Baseball</option>
           <option value="nhl">National Hockey League</option>
-          <option value="nfl">National Football League</option>
           <option value="nba">National Basketball Association</option>
+          <option value="nfl">National Football League</option>
+          <option value="mlb">Major League Baseball</option>
         </select>
         <input
           type="submit"

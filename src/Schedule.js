@@ -5,10 +5,6 @@ import Axios from 'axios';
 class Schedule extends Component {
   constructor() {
     super();
-    this.state = {
-      games: []
-      // games: {}
-    }
   }
   componentDidMount() {
     // this.fetchSchedules();
@@ -40,18 +36,26 @@ class Schedule extends Component {
   //   })
   // }
 
+  displayFavoriteTeams = () => {
+    return (
+      Object.entries(this.props.favoriteTeams).map((team) => {
+        console.log(team[1]);
+        return (
+          <div key={team[0]}>
+            <h2>{team[1].teamName}</h2>
+            <h3>Schedule</h3>
+
+          
+          </div>
+        )
+      })
+    )
+  }
+
   render() {
     return (
       <div>
-        <p>I am the schedule</p>
-        {/* {
-          this.state.games.map((game) => {
-            return (
-              <p>{game}</p>
-            )
-          })
-        } */}
-        {/* {console.log(this.props.favoriteTeams)} */}
+        {this.displayFavoriteTeams()}
       </div>
     )
   }

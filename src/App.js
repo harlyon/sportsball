@@ -17,10 +17,11 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      league: 'mlb',
+      league: 'nhl', // default league
       teamsByLeague: [],
       favoriteTeams: {},
       currentView: 'schedule',
+      // the folllowing are for pushing favorite team info to firebase
       teamBadge: '',
       teamID: 0,
       teamLeague: '',
@@ -82,38 +83,7 @@ class App extends Component {
       console.log(userSelectedTeam);
       dbRef.push(userSelectedTeam);
     })
-    // on click of a team button collect the following info:
-    // team name
-    // team id
-    // team league
-    // team badge
-    // upcoming 5 games in an object
-    // perhaps temporarily store in state?
-    // example state object:
-    // this.state.favorite team = {
-    //  teamBadge: e.target.getAttribute('data-team-badge'),
-    //  teamID: e.target.id,
-    //  teamLeague: e.target.value,
-    //  teamName: e.target.getAttribute('data-team-name'),
-    //  teamSchedule: {
-    //    game1: '',
-    //    game2: '',
-    //    game3: '',
-    //    game4: '',
-    //    game5: ''
-    //  }
-    // }
   }
-  // captureTeam = (e) => {
-  //   e.preventDefault();
-  //   const userSelectedTeam = {
-  //     teamBadge: e.target.getAttribute('data-team-badge'),
-  //     teamID: e.target.id,
-  //     teamLeague: e.target.value,
-  //     teamName: e.target.getAttribute('data-team-name'),
-  //   }
-  //   dbRef.push(userSelectedTeam);
-  // }
   removeTeam = (e) => {
     const firebaseKey = e.target.id;
     const teamRef = firebase.database().ref(`/${firebaseKey}`);
