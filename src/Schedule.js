@@ -1,24 +1,48 @@
 import React, {Component} from 'react';
+import Axios from 'axios';
+
 
 class Schedule extends Component {
   constructor() {
     super();
+    this.state = {
+      games: []
+    }
+  }
+  componentDidMount() {
+    // console.log(this.props.favoriteTeams);
+    this.fetchSchedules();
+  }
+  fetchSchedules = () => {
+    Promise.all(Object.entries(this.props.favoriteTeams).map((team) => {
+      return Axios.get(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${team[1].teamID}`)
+    })).then((res) => {
+      return (res.map((schedule) => {
+        return schedule.data.events.map((game) => {
+          // return (
+          //   <p>{ga`me.strEvent}</p>
+          // )
+
+          console.log(game.strEvent)
+          // this.setState({
+          //   games: games.push(game.strEvent)
+          // })
+        })
+      }))
+    })
   }
   render() {
     return (
       <div>
         <p>I am the schedule</p>
         {
-          Object.entries(this.props.favoriteTeams).map((team) => {
+          this.state.games.map((game) => {
             return (
-              <div key={team[0]}>
-                <p>{team[1].teamName}</p>
-              </div>
+              <p>{game}</p>
             )
           })
         }
       </div>
-
     )
   }
 }

@@ -23,26 +23,6 @@ class App extends Component {
       currentView: 'favoriteTeams'
     }
   }
-  // ANASTASIA'S WAY
-  // componentDidMount() {
-  //   dbRef.on('value', (snapshot) => {
-  //     const object = snapshot.val();
-  //     let favoriteTeams = [];
-  //     for (let key in object){
-  //       const team = {
-  //         teamID: object[key].teamID,
-  //         teamLeague: object[key].teamLeague,
-  //         teamBadge: object[key].teamBadge,
-  //         teamName: object[key].teamName
-  //       }
-  //       favoriteTeams.push(team);
-  //     }
-  //     console.log(favoriteTeams);
-  //     this.setState({
-  //       favoriteTeams: favoriteTeams
-  //     })
-  //   });
-  // }
   componentDidMount() {
     dbRef.on('value', (snapshot) => {
       this.setState({
@@ -107,24 +87,11 @@ class App extends Component {
               <button onClick={this.showFavoriteTeams}>My Teams</button>
               <button onClick={this.showSchedule}>Schedule</button>
               <button onClick={this.showLeague}>Leagues</button>
-              {/* schedule */}
             </div>
           </div>
         </header>
         <main>
           <div className="wrapper">
-            {/* <DisplayFavoriteTeams 
-              favoriteTeams={this.state.favoriteTeams}
-              removeTeam={this.removeTeam}/>
-            <LeagueForm 
-              handleSubmit={this.handleSubmit}
-              handleChange={this.handleChange}
-              league={this.state.league}
-              teams={this.state.teamsByLeague}
-              />
-            <TeamForm 
-              teams={this.state.teamsByLeague}
-              captureTeam={this.captureTeam}/> */}
               {
                 this.state.currentView === 'favoriteTeams'
                 ?

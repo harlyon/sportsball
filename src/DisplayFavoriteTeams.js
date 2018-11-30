@@ -13,7 +13,6 @@ class DisplayFavoriteTeams extends Component {
             this.props.favoriteTeams
             ? 
             Object.entries(this.props.favoriteTeams).map((team) => {
-              console.log(team);
               return (
                 <div key={team[0]}>
                   <h3>{team[1].teamName}</h3>
