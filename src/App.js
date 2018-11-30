@@ -20,7 +20,12 @@ class App extends Component {
       league: 'mlb',
       teamsByLeague: [],
       favoriteTeams: {},
-      currentView: 'favoriteTeams'
+      currentView: 'schedule',
+      teamBadge: '',
+      teamID: 0,
+      teamLeague: '',
+      teamName: '',
+      teamSchedule: {}
     }
   }
   componentDidMount() {
@@ -32,14 +37,14 @@ class App extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    this.getLeague();
+    this.fetchLeague();
   }
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     })
   }
-  getLeague = () => {
+  fetchLeague = () => {
     Axios.get(`https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=${this.state.league}`, {
     }).then((res) => {
       this.setState({
@@ -47,16 +52,68 @@ class App extends Component {
       })
     })
   }
-  captureTeam = (e) => {
+  fetchTeamSchedule = (e) => {
     e.preventDefault();
-    const userSelectedTeam = {
-      teamBadge: e.target.getAttribute('data-team-badge'),
-      teamID: e.target.id,
-      teamLeague: e.target.value,
-      teamName: e.target.getAttribute('data-team-name'),
-    }
-    dbRef.push(userSelectedTeam);
+    const getTeamBadge = e.target.getAttribute('data-team-badge');
+    const getTeamID = e.target.id;
+    const getTeamLeague = e.target.value;
+    const getTeamName = e.target.getAttribute('data-team-name');
+    this.setState({
+      teamBadge: getTeamBadge,
+      teamID: getTeamID,
+      teamLeague: getTeamLeague,
+      teamName: getTeamName,
+    })
+    Axios.get(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${e.target.id}`, {
+    }).then((res) => {
+      const upcomingGames = res.data.events.map((game) => {
+        return game.strFilename;
+      })
+      this.setState({
+        teamSchedule: upcomingGames  
+      })
+      const userSelectedTeam = {
+        teamBadge: this.state.teamBadge,
+        teamID: this.state.teamID,
+        teamLeague: this.state.teamLeague,
+        teamName: this.state.teamName,
+        teamSchedule: this.state.teamSchedule
+      }
+      console.log(userSelectedTeam);
+      dbRef.push(userSelectedTeam);
+    })
+    // on click of a team button collect the following info:
+    // team name
+    // team id
+    // team league
+    // team badge
+    // upcoming 5 games in an object
+    // perhaps temporarily store in state?
+    // example state object:
+    // this.state.favorite team = {
+    //  teamBadge: e.target.getAttribute('data-team-badge'),
+    //  teamID: e.target.id,
+    //  teamLeague: e.target.value,
+    //  teamName: e.target.getAttribute('data-team-name'),
+    //  teamSchedule: {
+    //    game1: '',
+    //    game2: '',
+    //    game3: '',
+    //    game4: '',
+    //    game5: ''
+    //  }
+    // }
   }
+  // captureTeam = (e) => {
+  //   e.preventDefault();
+  //   const userSelectedTeam = {
+  //     teamBadge: e.target.getAttribute('data-team-badge'),
+  //     teamID: e.target.id,
+  //     teamLeague: e.target.value,
+  //     teamName: e.target.getAttribute('data-team-name'),
+  //   }
+  //   dbRef.push(userSelectedTeam);
+  // }
   removeTeam = (e) => {
     const firebaseKey = e.target.id;
     const teamRef = firebase.database().ref(`/${firebaseKey}`);
@@ -84,8 +141,8 @@ class App extends Component {
           <div className="wrapper">
             <h1>Fan Feed</h1>
             <div>
-              <button onClick={this.showFavoriteTeams}>My Teams</button>
               <button onClick={this.showSchedule}>Schedule</button>
+              <button onClick={this.showFavoriteTeams}>My Teams</button>
               <button onClick={this.showLeague}>Leagues</button>
             </div>
           </div>
@@ -93,21 +150,21 @@ class App extends Component {
         <main>
           <div className="wrapper">
               {
-                this.state.currentView === 'favoriteTeams'
-                ?
-                <DisplayFavoriteTeams
-                  favoriteTeams={this.state.favoriteTeams}
-                  removeTeam={this.removeTeam}
-                  showLeague={this.showLeague} />
-                :
-                null
-              }
-              {
                 this.state.currentView === 'schedule'
                 ?
                 <Schedule favoriteTeams={this.state.favoriteTeams}/>
                 :
                 null
+              }
+              {
+                this.state.currentView === 'favoriteTeams'
+                  ?
+                  <DisplayFavoriteTeams
+                    favoriteTeams={this.state.favoriteTeams}
+                    removeTeam={this.removeTeam}
+                    showLeague={this.showLeague} />
+                  :
+                  null
               }
               {
                 this.state.currentView === 'league'
@@ -120,7 +177,8 @@ class App extends Component {
                     teams={this.state.teamsByLeague} />
                   <TeamsInLeague
                     teams={this.state.teamsByLeague}
-                    captureTeam={this.captureTeam} />
+                    captureTeam={this.captureTeam}
+                    fetchTeamSchedule={this.fetchTeamSchedule} />
                 </div>
                 :
                 null
