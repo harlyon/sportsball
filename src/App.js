@@ -68,7 +68,11 @@ class App extends Component {
     Axios.get(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${e.target.id}`, {
     }).then((res) => {
       const upcomingGames = res.data.events.map((game) => {
-        return game.strFilename;
+        console.log(game)
+        // working return
+        // return game.strFilename;
+        // testing return
+        return `Date: ${game.dateEvent} | ${game.strEvent}`
       })
       this.setState({
         teamSchedule: upcomingGames  
@@ -80,7 +84,7 @@ class App extends Component {
         teamName: this.state.teamName,
         teamSchedule: this.state.teamSchedule
       }
-      console.log(userSelectedTeam);
+      // console.log(userSelectedTeam);
       dbRef.push(userSelectedTeam);
     })
   }
@@ -111,7 +115,7 @@ class App extends Component {
           <div className="wrapper">
             <h1>Fan Feed</h1>
             <div>
-              <button onClick={this.showSchedule}>Schedule</button>
+              <button onClick={this.showSchedule}>Schedules</button>
               <button onClick={this.showFavoriteTeams}>My Teams</button>
               <button onClick={this.showLeague}>Leagues</button>
             </div>
