@@ -68,11 +68,15 @@ class App extends Component {
     Axios.get(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${e.target.id}`, {
     }).then((res) => {
       const upcomingGames = res.data.events.map((game) => {
-        console.log(game)
-        // working return
-        // return game.strFilename;
-        // testing return
-        return `Date: ${game.dateEvent} | ${game.strEvent}`
+        console.log(game);
+        const fixedDate = new Date(game.dateEvent).toString()
+        if (game.strLeague === 'NHL') {
+          return `${game.dateEvent} - ${game.strHomeTeam} @ ${game.strAwayTeam}`
+        } else if (game.strLeague === 'NBA') {
+          return `${fixedDate} - ${game.strAwayTeam} @ ${game.strHomeTeam}`
+        } else {
+          return `${game.dateEvent} - ${game.strAwayTeam} @ ${game.strHomeTeam}`
+        }
       })
       this.setState({
         teamSchedule: upcomingGames  
@@ -126,7 +130,9 @@ class App extends Component {
               {
                 this.state.currentView === 'schedule'
                 ?
-                <Schedule favoriteTeams={this.state.favoriteTeams}/>
+                <Schedule 
+                  favoriteTeams={this.state.favoriteTeams}
+                  showLeague={this.showLeague} />
                 :
                 null
               }

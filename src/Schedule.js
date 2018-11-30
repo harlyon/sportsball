@@ -13,18 +13,15 @@ class Schedule extends Component {
         return (
           <div key={team[0]}>
             <h2>{team[1].teamName}</h2>
-            <h3>Schedule</h3>
             <div>
               {
                 team[1].teamSchedule.map((game) => {
-                  console.log(game)
                   return (
                     <p>{game}</p>
                   )
                 })
               }
             </div>
-          
           </div>
         ) 
       })
@@ -33,7 +30,17 @@ class Schedule extends Component {
   render() {
     return (
       <div>
-        {this.displayFavoriteTeams()}
+        <h2>Schedules</h2>
+        {
+          this.props.favoriteTeams
+          ?
+          this.displayFavoriteTeams()
+          :
+          <div>
+            <p>Not a fan?</p>
+            <button onClick={this.props.showLeague}>Find some teams to follow!</button>
+          </div>
+        }
       </div>
     )
   }
