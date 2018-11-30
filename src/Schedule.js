@@ -7,10 +7,10 @@ class Schedule extends Component {
     super();
     this.state = {
       games: []
+      // do I even need this???
     }
   }
   componentDidMount() {
-    // console.log(this.props.favoriteTeams);
     this.fetchSchedules();
   }
   fetchSchedules = () => {
@@ -19,14 +19,17 @@ class Schedule extends Component {
     })).then((res) => {
       return (res.map((schedule) => {
         return schedule.data.events.map((game) => {
+          // console.log(game.strEvent)
           // return (
-          //   <p>{ga`me.strEvent}</p>
+          //   <p>{game.strEvent}</p>
           // )
-
-          console.log(game.strEvent)
-          // this.setState({
-          //   games: games.push(game.strEvent)
-          // })
+          const newGamesArray = Array.from(this.state.games);
+          newGamesArray.push(game.strEvent);
+          this.setState({
+            games: newGamesArray
+          })
+          // Why isn't the return printing the p tag?
+          // The console log is working...
         })
       }))
     })
@@ -35,6 +38,7 @@ class Schedule extends Component {
     return (
       <div>
         <p>I am the schedule</p>
+        {/* Do I need to call componentDidMount()? */}
         {
           this.state.games.map((game) => {
             return (
