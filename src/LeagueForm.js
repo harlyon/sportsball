@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 class LeagueForm extends Component {
-  render() {
+  displayForm = () => {
     return (
       <div>
         <h2>Leagues</h2>
@@ -26,7 +26,15 @@ class LeagueForm extends Component {
             value="Go!"
             className="league-submit" />
         </form>
-
+      </div>
+    )
+  }
+  render() {
+    return (
+      <div>
+        {
+          this.displayForm()
+        }
       </div>
     )
   }

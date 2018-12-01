@@ -1,9 +1,32 @@
 import React, {Component} from 'react';
 
 class DisplayFavoriteTeams extends Component {
-  // constructor() {
-  //   super();
-  // }
+  displayFavoriteTeams = () => {
+    return (
+      Object.entries(this.props.favoriteTeams).map((team) => {
+        return (
+          <div key={team[0]}>
+            <h3>{team[1].teamName}</h3>
+            <img src={team[1].teamBadge} alt={team[1].teamName} />
+            <p>League: {team[1].teamLeague}</p>
+            <button
+              onClick={this.props.removeTeam}
+              id={team[0]}>
+              Remove team
+            </button>
+          </div>
+        )
+      })
+    )
+  }
+  noFavoriteTeams = () => {
+    return (
+      <div>
+        <p>Not a fan?</p>
+        <button onClick={this.props.showLeague}>Find some teams to follow!</button>
+      </div>
+    )
+  }
   render() {
     return (
       <div>
@@ -12,25 +35,9 @@ class DisplayFavoriteTeams extends Component {
           {
             this.props.favoriteTeams
             ? 
-            Object.entries(this.props.favoriteTeams).map((team) => {
-              return (
-                <div key={team[0]}>
-                  <h3>{team[1].teamName}</h3>
-                  <img src={team[1].teamBadge} alt={team[1].teamName}/>
-                  <p>League: {team[1].teamLeague}</p>
-                  <button 
-                    onClick={this.props.removeTeam} 
-                    id={team[0]}>
-                    Remove team
-                  </button>
-                </div>
-              )
-            })
+            this.displayFavoriteTeams()
             :
-            <div>
-              <p>Not a fan?</p>
-              <button onClick={this.props.showLeague}>Find some teams to follow!</button>
-            </div>
+            this.noFavoriteTeams()
           }
         </section>
       </div>

@@ -6,7 +6,7 @@ class Schedule extends Component {
   constructor() {
     super();
   }
-  displayFavoriteTeams = () => {
+  displaySchedule = () => {
     return (
       Object.entries(this.props.favoriteTeams).map((team) => {
         // console.log(team[1]);
@@ -27,6 +27,14 @@ class Schedule extends Component {
       })
     )
   }
+  noSchedule = () => {
+    return (
+      <div>
+        <p>Not a fan?</p>
+        <button onClick={this.props.showLeague}>Find some teams to follow!</button>
+      </div>
+    )
+  }
   render() {
     return (
       <div>
@@ -34,12 +42,9 @@ class Schedule extends Component {
         {
           this.props.favoriteTeams
           ?
-          this.displayFavoriteTeams()
+          this.displaySchedule()
           :
-          <div>
-            <p>Not a fan?</p>
-            <button onClick={this.props.showLeague}>Find some teams to follow!</button>
-          </div>
+          this.noSchedule()
         }
       </div>
     )

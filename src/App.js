@@ -73,14 +73,14 @@ class App extends Component {
     }).then((res) => {
       const upcomingGames = res.data.events.map((game) => {
         console.log(game);
-
-        const nbaFixedDate = moment(`${game.dateEvent} ${game.strTime}`).subtract(5, 'hours').format('MMM D, YYYY, h:mm a');
+        const regDate = moment(`${game.dateEvent}`).format('dddd MMMM D, YYYY');
+        const nbaDate = moment(`${game.dateEvent} ${game.strTime}`).subtract(5, 'hours').format('dddd MMMM D, YYYY');
         if (game.strLeague === 'NHL') {
-          return `${game.dateEvent} - ${game.strHomeTeam} @ ${game.strAwayTeam}`
+          return `${regDate} - ${game.strHomeTeam} @ ${game.strAwayTeam}`
         } else if (game.strLeague === 'NBA') {
-          return `${nbaFixedDate} - ${game.strAwayTeam} @ ${game.strHomeTeam}`
+          return `${nbaDate} - ${game.strAwayTeam} @ ${game.strHomeTeam}`
         } else {
-          return `${game.dateEvent} - ${game.strAwayTeam} @ ${game.strHomeTeam}`
+          return `${regDate} - ${game.strAwayTeam} @ ${game.strHomeTeam}`
         }
       })
       this.setState({
@@ -143,13 +143,13 @@ class App extends Component {
               }
               {
                 this.state.currentView === 'favoriteTeams'
-                  ?
-                  <DisplayFavoriteTeams
-                    favoriteTeams={this.state.favoriteTeams}
-                    removeTeam={this.removeTeam}
-                    showLeague={this.showLeague} />
-                  :
-                  null
+                ?
+                <DisplayFavoriteTeams
+                  favoriteTeams={this.state.favoriteTeams}
+                  removeTeam={this.removeTeam}
+                  showLeague={this.showLeague} />
+                :
+                null
               }
               {
                 this.state.currentView === 'league'
