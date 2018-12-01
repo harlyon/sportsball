@@ -13,6 +13,10 @@ import Schedule from './Schedule'
 // reference to the root of the firebase database
 const dbRef = firebase.database().ref();
 
+// moment.js to fix date issues
+const moment = require('moment');
+moment().format();
+
 class App extends Component {
   constructor() {
     super();
@@ -69,11 +73,12 @@ class App extends Component {
     }).then((res) => {
       const upcomingGames = res.data.events.map((game) => {
         console.log(game);
-        const fixedDate = new Date(game.dateEvent).toString()
+
+        const nbaFixedDate = moment(`${game.dateEvent} ${game.strTime}`).subtract(5, 'hours').format('MMM D, YYYY, h:mm a');
         if (game.strLeague === 'NHL') {
           return `${game.dateEvent} - ${game.strHomeTeam} @ ${game.strAwayTeam}`
         } else if (game.strLeague === 'NBA') {
-          return `${fixedDate} - ${game.strAwayTeam} @ ${game.strHomeTeam}`
+          return `${nbaFixedDate} - ${game.strAwayTeam} @ ${game.strHomeTeam}`
         } else {
           return `${game.dateEvent} - ${game.strAwayTeam} @ ${game.strHomeTeam}`
         }
