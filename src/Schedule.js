@@ -3,30 +3,47 @@ import Axios from 'axios';
 
 
 class Schedule extends Component {
-  constructor() {
-    super();
-  }
-  displaySchedule = () => {
+  // constructor() {
+  //   super();
+  // }
+  displaySchedule = (category) => {
     return (
-      Object.entries(this.props.favoriteTeams).map((team) => {
-        // console.log(team[1]);
-        return (
-          <div key={team[0]}>
-            <h2>{team[1].teamName}</h2>
-            <div>
-              {
-                team[1].teamSchedule.map((game) => {
-                  return (
-                    <p>{game}</p>
-                  )
-                })
-              }
-            </div>
-          </div>
-        ) 
-      })
+      <div>
+        <h2>{category}</h2>
+        {
+          Object.entries(this.props.favoriteTeams)
+          .filter((league) => {
+            if (league[1].teamLeague === `${category}`) {
+              return true;
+            };
+          })
+          .map((team) => {
+            return (
+              <div key={team[0]}>
+                <h2>{team[1].teamName}</h2>
+                <div>
+                  {
+                    team[1].teamSchedule.map((game) => {
+                      return (
+                        <p>{game}</p>
+                      )
+                    })
+                  }
+                </div>
+              </div>
+            ) 
+          })
+        }
+      </div>
     )
   }
+  displayAllSchedules = (nhl, nba, nfl) => {
+    this.displaySchedule(nhl);
+    this.displaySchedule(nba);
+    this.displaySchedule(nfl);
+    // this.displaySchedule(mlb);
+    console.log('hello?')
+  } 
   noSchedule = () => {
     return (
       <div>
@@ -42,7 +59,8 @@ class Schedule extends Component {
         {
           this.props.favoriteTeams
           ?
-          this.displaySchedule()
+          this.displayAllSchedules('NHL', 'NBA', 'NFL')
+          // this.displaySchedule('NFL')
           :
           this.noSchedule()
         }

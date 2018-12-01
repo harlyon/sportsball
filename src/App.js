@@ -24,7 +24,7 @@ class App extends Component {
       league: 'nhl', // default league
       teamsByLeague: [],
       favoriteTeams: {},
-      currentView: 'schedule',
+      currentView: 'schedule', // default view
       // the folllowing are for pushing favorite team info to firebase
       teamBadge: '',
       teamID: 0,
@@ -75,6 +75,10 @@ class App extends Component {
         console.log(game);
         const regDate = moment(`${game.dateEvent}`).format('dddd MMMM D, YYYY');
         const nbaDate = moment(`${game.dateEvent} ${game.strTime}`).subtract(5, 'hours').format('dddd MMMM D, YYYY');
+        // NBA info returns time of game in UTC which messed up the date of the game in most cases.
+        // NHL, NFL does not return time of game so the date can just be formatted.
+        // NHL returned incorrect home and away teams, verified with existing schedules to ensure that home and away should be swapped.
+        // Can't verify MLB as currently off-season and does not return any information.
         if (game.strLeague === 'NHL') {
           return `${regDate} - ${game.strHomeTeam} @ ${game.strAwayTeam}`
         } else if (game.strLeague === 'NBA') {
