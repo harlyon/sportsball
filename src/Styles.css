@@ -2,19 +2,90 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
 .clearfix:after {visibility: hidden; display: block; font-size: 0; content: ' '; clear: both; height: 0; }
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+}
+
 .wrapper {
   max-width: 1280px;
   width: 95%;
   margin: 0 auto;
 }
+
+/* ***** HEADER - START ***** */
+
+.header {
+  background: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 2px solid black;
+}
+
+.header .wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.header button {
+  margin: 5px 0;
+}
+
+main {
+  padding-top: 97.2px;
+}
+
+/* ***** HEADER - END ***** */
+
+/* ***** GENERAL STYLINGS - START ***** */
+
+.section-title {
+  text-align: center;
+  border-bottom: 1px solid black;
+  margin: 0;
+  padding: 20px 0;
+}
+
+/* ***** GENERAL STYLINGS - END ***** */
+
+/* ***** SCHEDULES - START ***** */
+/* ***** SCHEDULES - END ***** */
+
+/* ***** MY TEAMS - START ***** */
+/* ***** MY TEAMS - END ***** */
+
+/* ***** LEAGUES - START ***** */
+
+.league-form {
+  display: flex;
+}
+
+.league-select {
+  
+}
+
+.league-submit {
+  margin-left: 10px;
+}
+
+/* ***** LEAGUES - END ***** */
+
 .team-badge, img {
   max-width: 100px;
 }
 
 
-input[type="checkbox"] {
-  display: none;
-}
 
 .team-button {
   border: 3px solid grey;
@@ -35,10 +106,6 @@ input[type="checkbox"] {
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 } */
 
-.display-teams {
-  display: flex;
-  flex-wrap: wrap;
-}
 
 .team-by-league {
   display: grid;
@@ -49,8 +116,3 @@ input[type="checkbox"] {
 
 
 
-header .wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}

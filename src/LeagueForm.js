@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 class LeagueForm extends Component {
   displayForm = () => {
     return (
-      <div>
-        <h2>Leagues</h2>
+      <section className="league">
+        <h2 className="section-title">Leagues</h2>
         <form
           action=""
           className="league-form"
@@ -26,7 +26,7 @@ class LeagueForm extends Component {
             value="Go!"
             className="league-submit" />
         </form>
-      </div>
+      </section>
     )
   }
   render() {

@@ -61,7 +61,7 @@ class Schedule extends Component {
   render() {
     return (
       <div>
-        <h2>Schedules</h2>
+        <h2 className="section-title">Schedules</h2>
         {
           this.props.favoriteTeams
           ?

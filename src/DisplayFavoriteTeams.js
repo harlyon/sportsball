@@ -30,7 +30,7 @@ class DisplayFavoriteTeams extends Component {
   render() {
     return (
       <div>
-        <h2>My teams</h2>
+        <h2 className="section-title">My teams</h2>
         <section className="display-teams">
           {
             this.props.favoriteTeams

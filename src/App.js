@@ -124,14 +124,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header>
+        <header className="header">
           <div className="wrapper">
             <h1>Fan Feed</h1>
-            <div>
+            <nav>
               <button onClick={this.showSchedule}>Schedules</button>
               <button onClick={this.showFavoriteTeams}>My Teams</button>
               <button onClick={this.showLeague}>Leagues</button>
-            </div>
+            </nav>
           </div>
         </header>
         <main>
