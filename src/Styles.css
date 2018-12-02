@@ -8,6 +8,12 @@ html {
 
 body {
   font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, button {
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
 }
 
 .wrapper {
@@ -27,6 +33,11 @@ body {
   justify-self: flex-end;
 }
 
+/* 
+font-family: 'Work Sans', sans-serif;
+font-family: 'Roboto', sans-serif;
+ */
+
 /* ***** HEADER - START ***** */
 
 .header {
@@ -42,10 +53,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.header nav {
-
 }
 
 .header .button {
@@ -91,12 +98,17 @@ body {
 
 /* ***** SCHEDULES - START ***** */
 
+.schedule-grid {
+  margin-bottom: 20px;
+}
+
 .schedule-tile {
   border: 2px solid #333;
   border-radius: 5px;
-  margin: 20px 0;
+  margin: 20px auto 0 auto;
   padding: 10px;
   text-align: center;
+  max-width: 500px;
 }
 
 .schedule-tile .category-title {
@@ -120,7 +132,8 @@ body {
   grid-template-columns: auto 1fr;
   grid-column-gap: 10px;
   align-items: center;
-  margin-top: 20px;
+  margin: 20px auto 0 auto;
+  max-width: 400px;
 }
 
 .event-title {
@@ -135,6 +148,7 @@ body {
   margin: 0 auto;
   padding: 20px 0;
   border-bottom: 1px solid #333;
+  max-width: 400px;
 }
 
 .event-grid:last-child {
@@ -178,6 +192,25 @@ body {
   background: none;
 }
 
+@media (min-width: 768px) {
+  .display-teams {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 20px;
+    margin: 0 auto;
+  }
+  .display-teams .team-tile h2 {
+    text-align: center;
+  }
+}
+
+@media (min-width: 940px) {
+  .display-teams {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1000px;
+  }
+}
+
 /* ***** MY TEAMS - END ***** */
 
 /* ***** LEAGUES - START ***** */
@@ -216,6 +249,30 @@ body {
   width: 100%;
 }
 
+@media (min-width: 768px) {
+  .team-by-league {
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 20px;
+    margin: 0 auto;
+  }
+  .team-tile {
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    justify-items: center;
+    align-content: space-between;
+    height: 200px;
+  }
+  .team-tile .team-name {
+    text-align: center;
+  }
+}
+
+@media (min-width: 940px) {
+  .team-by-league {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1000px;
+  }
+}
 /* ***** LEAGUES - END ***** */
 
 /* ***** FOOTER - START ***** */
@@ -246,7 +303,3 @@ body {
   transform: scale(1.1);
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 } */
-
-
-
-

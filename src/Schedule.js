@@ -4,7 +4,7 @@ class Schedule extends Component {
   constructor() {
     super();
     this.state = {
-      leagues: ['NHL', 'NFL', 'NBA']
+      leagues: ['NHL', 'NBA', 'NFL']
     }
   }
   displaySchedule = (category) => {
@@ -54,7 +54,7 @@ class Schedule extends Component {
   }
   displayAllSchedules = () => {
     return (
-      <div>
+      <div className="schedule-grid">
         {this.state.leagues.includes('NHL') === true
         ?
         this.displaySchedule('NHL')
