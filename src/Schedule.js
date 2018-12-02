@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
-import Axios from 'axios';
-
 
 class Schedule extends Component {
-  // constructor() {
-  //   super();
-  // }
   displaySchedule = (category) => {
     return (
       <div>
@@ -13,9 +8,12 @@ class Schedule extends Component {
         {
           Object.entries(this.props.favoriteTeams)
           .filter((league) => {
-            if (league[1].teamLeague === `${category}`) {
+            const currentLeague = league[1].teamLeague
+            if (currentLeague === `${category}`) {
               return true;
-            };
+            } else {
+              return null;
+            }
           })
           .map((team) => {
             return (
@@ -24,8 +22,13 @@ class Schedule extends Component {
                 <div>
                   {
                     team[1].teamSchedule.map((game) => {
+                      const date = game[0];
+                      const awayTeam = game[1];
+                      const homeTeam = game[2];
                       return (
-                        <p>{game}</p>
+                        <div>
+                          <p>{date} - {awayTeam} @ {homeTeam}</p>
+                        </div>
                       )
                     })
                   }
@@ -37,13 +40,16 @@ class Schedule extends Component {
       </div>
     )
   }
-  displayAllSchedules = (nhl, nba, nfl) => {
-    this.displaySchedule(nhl);
-    this.displaySchedule(nba);
-    this.displaySchedule(nfl);
-    // this.displaySchedule(mlb);
-    console.log('hello?')
-  } 
+  displayAllSchedules = () => {
+    return (
+      <div>
+        {this.displaySchedule('NBA')}
+        {this.displaySchedule('NHL')}
+        {this.displaySchedule('NFL')}
+        {/* {this.displaySchedule('MLB')} */}
+      </div>
+    )
+  }
   noSchedule = () => {
     return (
       <div>
@@ -59,8 +65,7 @@ class Schedule extends Component {
         {
           this.props.favoriteTeams
           ?
-          this.displayAllSchedules('NHL', 'NBA', 'NFL')
-          // this.displaySchedule('NFL')
+          this.displayAllSchedules()
           :
           this.noSchedule()
         }

@@ -16,7 +16,9 @@ const TeamsInLeague = ({teams, fetchTeamSchedule}) => {
                 value={team.strLeague}
                 data-team-name={team.strTeam}
                 data-team-badge={team.strTeamBadge}
-                onClick={fetchTeamSchedule}>
+                onClick={fetchTeamSchedule}
+                // can't get onTouchStart to work?
+                onTouchStart={fetchTeamSchedule}>
                   <h2 className="team-name">{team.strTeam}</h2>
                   <img src={team.strTeamBadge} alt={team.strTeam} className="team-badge" />
               </button>
