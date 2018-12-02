@@ -124,56 +124,70 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="header">
-          <div className="wrapper">
-            <h1>Fan Feed</h1>
-            <nav>
-              <button onClick={this.showSchedule}>Schedules</button>
-              <button onClick={this.showFavoriteTeams}>My Teams</button>
-              <button onClick={this.showLeague}>Leagues</button>
-            </nav>
-          </div>
-        </header>
-        <main>
-          <div className="wrapper">
-              {
-                this.state.currentView === 'schedule'
-                ?
-                <Schedule 
-                  favoriteTeams={this.state.favoriteTeams}
-                  showLeague={this.showLeague} />
-                :
-                null
-              }
-              {
-                this.state.currentView === 'favoriteTeams'
-                ?
-                <DisplayFavoriteTeams
-                  favoriteTeams={this.state.favoriteTeams}
-                  removeTeam={this.removeTeam}
-                  showLeague={this.showLeague} />
-                :
-                null
-              }
-              {
-                this.state.currentView === 'league'
-                ?
-                <div>
-                  <LeagueForm
-                    handleSubmit={this.handleSubmit}
-                    handleChange={this.handleChange}
-                    league={this.state.league}
-                    teams={this.state.teamsByLeague} />
-                  <TeamsInLeague
-                    teams={this.state.teamsByLeague}
-                    captureTeam={this.captureTeam}
-                    fetchTeamSchedule={this.fetchTeamSchedule} />
-                </div>
-                :
-                null
-              }
-          </div>
-        </main>
+        <div>
+          <header className="header">
+            <div className="wrapper">
+              <nav>
+                <button
+                  onClick={this.showSchedule}
+                  className={this.state.currentView === 'schedule' ? 'selected button button-schedule' : 'button button-schedule'}>
+                  Schedules</button>
+                <button
+                  onClick={this.showFavoriteTeams}
+                  className={this.state.currentView === 'favoriteTeams' ? 'selected button button-schedule' : 'button button-favorite-teams'}>
+                  My Teams</button>
+                <button
+                  onClick={this.showLeague}
+                  className={this.state.currentView === 'league' ? 'selected button button-schedule' : 'button button-leagues'}>
+                  Leagues</button>
+              </nav>
+              <h1 className="header-title">Fan Feed</h1>
+            </div>
+          </header>
+          <main>
+            <div className="wrapper">
+                {
+                  this.state.currentView === 'schedule'
+                  ?
+                  <Schedule 
+                    favoriteTeams={this.state.favoriteTeams}
+                    showLeague={this.showLeague} />
+                  :
+                  null
+                }
+                {
+                  this.state.currentView === 'favoriteTeams'
+                  ?
+                  <DisplayFavoriteTeams
+                    favoriteTeams={this.state.favoriteTeams}
+                    removeTeam={this.removeTeam}
+                    showLeague={this.showLeague} />
+                  :
+                  null
+                }
+                {
+                  this.state.currentView === 'league'
+                  ?
+                  <div>
+                    <LeagueForm
+                      handleSubmit={this.handleSubmit}
+                      handleChange={this.handleChange}
+                      league={this.state.league}
+                      teams={this.state.teamsByLeague} />
+                    <TeamsInLeague
+                      teams={this.state.teamsByLeague}
+                      captureTeam={this.captureTeam}
+                      fetchTeamSchedule={this.fetchTeamSchedule} />
+                  </div>
+                  :
+                  null
+                }
+            </div>
+          </main>
+        </div>
+        <footer className="footer">
+          <p>&copy; Jonathan 2018, API information courtesy of <a href="https://www.thesportsdb.com/api.php">TheSportsDB</a></p>
+        </footer>
       </div>
     );
   }

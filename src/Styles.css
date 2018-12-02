@@ -16,35 +16,54 @@ body {
   margin: 0 auto;
 }
 
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.footer {
+  justify-self: flex-end;
+}
+
 /* ***** HEADER - START ***** */
 
 .header {
-  background: white;
-  position: fixed;
+  background: #333333;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
-  border-bottom: 2px solid black;
 }
 
 .header .wrapper {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
 }
 
 .header nav {
-  display: flex;
-  flex-direction: column;
+
 }
 
-.header button {
-  margin: 5px 0;
+.header .button {
+  margin-top: 10px;
+  padding: 5px;
+  border: none;
+  background: none;
+  color: #a3a3a3;
 }
 
-main {
-  padding-top: 97.2px;
+.header .button.selected {
+  color: white;
+  border-bottom: 1px solid white;
 }
+
+.header-title {
+  color: white;
+}
+
 
 /* ***** HEADER - END ***** */
 
@@ -69,17 +88,36 @@ main {
 
 .league-form {
   display: flex;
-}
-
-.league-select {
-  
+  justify-content: center;
+  padding: 20px 0;
 }
 
 .league-submit {
   margin-left: 10px;
 }
 
+
+
 /* ***** LEAGUES - END ***** */
+
+/* ***** FOOTER - START ***** */
+
+.footer {
+  text-align: center;
+  background: lightgrey;
+}
+
+.footer p {
+  margin: 0;
+  padding: 20px 0;
+}
+
+.footer a {
+  text-decoration: none;
+  color: black;
+}
+
+/* ***** FOOTER - END ***** */
 
 .team-badge, img {
   max-width: 100px;

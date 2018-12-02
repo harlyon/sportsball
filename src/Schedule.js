@@ -26,7 +26,7 @@ class Schedule extends Component {
                       const awayTeam = game[1];
                       const homeTeam = game[2];
                       return (
-                        <div>
+                        <div key={date}>
                           <p>{date} - {awayTeam} @ {homeTeam}</p>
                         </div>
                       )
