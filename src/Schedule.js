@@ -1,9 +1,15 @@
 import React, {Component} from 'react';
 
 class Schedule extends Component {
+  constructor() {
+    super();
+    this.state = {
+      leagues: ['NHL', 'NFL', 'NBA']
+    }
+  }
   displaySchedule = (category) => {
     return (
-      <div>
+      <div className="schedule-tile">
         <h2>{category}</h2>
         {
           Object.entries(this.props.favoriteTeams)
@@ -43,10 +49,30 @@ class Schedule extends Component {
   displayAllSchedules = () => {
     return (
       <div>
-        {this.displaySchedule('NBA')}
-        {this.displaySchedule('NHL')}
-        {this.displaySchedule('NFL')}
-        {/* {this.displaySchedule('MLB')} */}
+        {this.state.leagues.includes('NHL') === true
+        ?
+        this.displaySchedule('NHL')
+        :
+        null
+        }
+        {this.state.leagues.includes('NBA') === true
+        ?
+        this.displaySchedule('NBA')
+        :
+        null
+        }
+        {this.state.leagues.includes('NFL') === true
+        ?
+        this.displaySchedule('NFL')
+        :
+        null
+        }
+        {this.state.leagues.includes('MLB') === true
+        ?
+        this.displaySchedule('MLB')
+        :
+        null
+        }
       </div>
     )
   }

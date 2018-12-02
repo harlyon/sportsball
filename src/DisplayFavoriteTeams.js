@@ -5,14 +5,14 @@ class DisplayFavoriteTeams extends Component {
     return (
       Object.entries(this.props.favoriteTeams).map((team) => {
         return (
-          <div key={team[0]}>
-            <h3>{team[1].teamName}</h3>
+          <div key={team[0]} className="team-tile">
             <img src={team[1].teamBadge} alt={team[1].teamName} />
-            <p>League: {team[1].teamLeague}</p>
+            <h2>{team[1].teamName}</h2>
+            {/* <p>League: {team[1].teamLeague}</p> */}
             <button
               onClick={this.props.removeTeam}
               id={team[0]}>
-              Remove team
+              X
             </button>
           </div>
         )

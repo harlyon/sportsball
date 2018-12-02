@@ -10,7 +10,7 @@ const TeamsInLeague = ({teams, fetchTeamSchedule}) => {
           return (
             <div key={team.idTeam}>
               <button
-                className="team-button"
+                className="team-tile"
                 type="checkbox"
                 id={team.idTeam}
                 value={team.strLeague}
@@ -19,8 +19,8 @@ const TeamsInLeague = ({teams, fetchTeamSchedule}) => {
                 onClick={fetchTeamSchedule}
                 // can't get onTouchStart to work?
                 onTouchStart={fetchTeamSchedule}>
-                  <h2 className="team-name">{team.strTeam}</h2>
                   <img src={team.strTeamBadge} alt={team.strTeam} className="team-badge" />
+                  <h2 className="team-name">{team.strTeam}</h2>
               </button>
             </div>
           )

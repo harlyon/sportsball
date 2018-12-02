@@ -30,7 +30,8 @@ class App extends Component {
       teamID: 0,
       teamLeague: '',
       teamName: '',
-      teamSchedule: {}
+      teamSchedule: {},
+      selectedLeagues: {}
     }
   }
   componentDidMount() {
@@ -72,14 +73,13 @@ class App extends Component {
     Axios.get(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${e.target.id}`, {
     }).then((res) => {
       const upcomingGames = res.data.events.map((game) => {
-        console.log(game);
+        // console.log(game);
         const regDate = moment(`${game.dateEvent}`).format('dddd MMMM D, YYYY');
         const nbaDate = moment(`${game.dateEvent} ${game.strTime}`).subtract(5, 'hours').format('dddd MMMM D, YYYY');
-        // NBA info returns time of game in UTC which messes up the date of the game in most cases (late-night games appear as next day).
-        // NHL, NFL does not return time of game at all so the date can just be formatted.
-        // NHL returned incorrect home and away teams, verified with existing schedules to ensure that home and away should be swapped.
+        // NBA info returns time of game in UTC which messes up the date of the game in most cases (late-night games return as next day).
+        // NHL, NFL does not return time of game at all so the date can  be formatted without adjustment.
+        // NHL returned incorrect home and away teams (swapped).
         // Can't verify MLB as currently off-season and does not return any information.
-
         if (game.strLeague === 'NHL') {
           return [regDate, game.strHomeTeam, game.strAwayTeam]
         } else if (game.strLeague === 'NBA') {
@@ -88,8 +88,14 @@ class App extends Component {
           return [regDate, game.strAwayTeam, game.strHomeTeam]
         }
       })
+      const leaguesToPrint = res.data.events.map((game) => {
+        return game.strLeague
+      })
+      const temporaryLeagueArray = [];
+      temporaryLeagueArray.push(leaguesToPrint);
       this.setState({
-        teamSchedule: upcomingGames  
+        teamSchedule: upcomingGames,
+        selectedLeagues: temporaryLeagueArray
       })
       const userSelectedTeam = {
         teamBadge: this.state.teamBadge,
@@ -99,6 +105,7 @@ class App extends Component {
         teamSchedule: this.state.teamSchedule
       }
       dbRef.push(userSelectedTeam);
+      console.log(this.state.selectedLeagues);
     })
   }
   removeTeam = (e) => {
@@ -129,13 +136,13 @@ class App extends Component {
             <div className="wrapper">
               <nav>
                 <button
-                  onClick={this.showSchedule}
-                  className={this.state.currentView === 'schedule' ? 'selected button button-schedule' : 'button button-schedule'}>
-                  Schedules</button>
-                <button
                   onClick={this.showFavoriteTeams}
                   className={this.state.currentView === 'favoriteTeams' ? 'selected button button-schedule' : 'button button-favorite-teams'}>
                   My Teams</button>
+                <button
+                  onClick={this.showSchedule}
+                  className={this.state.currentView === 'schedule' ? 'selected button button-schedule' : 'button button-schedule'}>
+                  Schedules</button>
                 <button
                   onClick={this.showLeague}
                   className={this.state.currentView === 'league' ? 'selected button button-schedule' : 'button button-leagues'}>
@@ -186,7 +193,8 @@ class App extends Component {
           </main>
         </div>
         <footer className="footer">
-          <p>&copy; Jonathan 2018, API information courtesy of <a href="https://www.thesportsdb.com/api.php">TheSportsDB</a></p>
+          <p>&copy; Jonathan 2018</p>
+          <p>API information courtesy of <a href="https://www.thesportsdb.com/api.php">TheSportsDB</a></p>
         </footer>
       </div>
     );
