@@ -10,7 +10,7 @@ class Schedule extends Component {
   displaySchedule = (category) => {
     return (
       <div className="schedule-tile">
-        <h2>{category}</h2>
+        <h2 className="category-title">{category}</h2>
         {
           Object.entries(this.props.favoriteTeams)
           .filter((league) => {
@@ -24,7 +24,10 @@ class Schedule extends Component {
           .map((team) => {
             return (
               <div key={team[0]}>
-                <h2>{team[1].teamName}</h2>
+                <div className="event-team">
+                  <img src={team[1].teamBadge} alt=""/>
+                  <h2 className="event-title">{team[1].teamName}</h2>
+                </div>
                 <div>
                   {
                     team[1].teamSchedule.map((game) => {
@@ -32,8 +35,11 @@ class Schedule extends Component {
                       const awayTeam = game[1];
                       const homeTeam = game[2];
                       return (
-                        <div key={date}>
-                          <p>{date} - {awayTeam} @ {homeTeam}</p>
+                        <div key={date} className="event-grid">
+                          <p className="event-grid-away-team">{awayTeam}</p>
+                          <p>@</p>
+                          <p className="event-grid-home-team">{homeTeam}</p>
+                          <p className="event-grid-date">{date}</p>
                         </div>
                       )
                     })
