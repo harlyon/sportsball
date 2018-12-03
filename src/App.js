@@ -13,7 +13,6 @@ import Schedule from './Schedule'
 // reference to the root of the firebase database
 const dbRef = firebase.database().ref();
 
-
 // moment.js to fix date issues
 const moment = require('moment');
 moment().format();
@@ -73,7 +72,6 @@ class App extends Component {
     Axios.get(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${e.target.id}`, {
     }).then((res) => {
       const upcomingGames = res.data.events.map((game) => {
-        // console.log(game.dateEvent);
         const regDate = moment(`${game.dateEvent}`, 'YYYY-MM-DD').format('dddd MMMM D, YYYY');
         const nbaDate = moment(`${game.dateEvent} ${game.strTime}`, 'YYYY-MM-DD HH:mm').subtract(5, 'hours').format('dddd MMMM D, YYYY');
         // NBA info returns time of game in UTC which messes up the date of the game in most cases (late-night games return as next day).
