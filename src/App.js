@@ -13,6 +13,7 @@ import Schedule from './Schedule'
 // reference to the root of the firebase database
 const dbRef = firebase.database().ref();
 
+
 // moment.js to fix date issues
 const moment = require('moment');
 moment().format();
