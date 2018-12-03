@@ -31,7 +31,7 @@ class App extends Component {
       teamLeague: '',
       teamName: '',
       teamSchedule: {},
-      selectedLeagues: {}
+      selectedLeagues: []
     }
   }
   componentDidMount() {
@@ -88,11 +88,14 @@ class App extends Component {
           return [regDate, game.strAwayTeam, game.strHomeTeam]
         }
       })
-      const leaguesToPrint = res.data.events.map((game) => {
+      const leagueToPrint = res.data.events.map((game) => {
         return game.strLeague
       })
-      const temporaryLeagueArray = [];
-      temporaryLeagueArray.push(leaguesToPrint);
+      const filteredLeagueToPrint = leagueToPrint.filter((v, i) => {
+        return leagueToPrint.indexOf(v) === i
+      })
+      const temporaryLeagueArray = this.state.selectedLeagues;
+      temporaryLeagueArray.push(filteredLeagueToPrint.toString());
       this.setState({
         teamSchedule: upcomingGames,
         selectedLeagues: temporaryLeagueArray
@@ -158,7 +161,8 @@ class App extends Component {
                   ?
                   <Schedule 
                     favoriteTeams={this.state.favoriteTeams}
-                    showLeague={this.showLeague} />
+                    showLeague={this.showLeague}
+                    selectedLeagues={this.state.selectedLeagues} />
                   :
                   null
                 }
