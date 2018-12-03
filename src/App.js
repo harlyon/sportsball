@@ -31,7 +31,6 @@ class App extends Component {
       teamLeague: '',
       teamName: '',
       teamSchedule: {},
-      selectedLeagues: []
     }
   }
   componentDidMount() {
@@ -73,9 +72,9 @@ class App extends Component {
     Axios.get(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${e.target.id}`, {
     }).then((res) => {
       const upcomingGames = res.data.events.map((game) => {
-        // console.log(game);
-        const regDate = moment(`${game.dateEvent}`).format('dddd MMMM D, YYYY');
-        const nbaDate = moment(`${game.dateEvent} ${game.strTime}`).subtract(5, 'hours').format('dddd MMMM D, YYYY');
+        // console.log(game.dateEvent);
+        const regDate = moment(`${game.dateEvent}`, 'YYYY-MM-DD').format('dddd MMMM D, YYYY');
+        const nbaDate = moment(`${game.dateEvent} ${game.strTime}`, 'YYYY-MM-DD HH:mm').subtract(5, 'hours').format('dddd MMMM D, YYYY');
         // NBA info returns time of game in UTC which messes up the date of the game in most cases (late-night games return as next day).
         // NHL, NFL does not return time of game at all so the date can  be formatted without adjustment.
         // NHL returned incorrect home and away teams (swapped).
@@ -88,17 +87,8 @@ class App extends Component {
           return [regDate, game.strAwayTeam, game.strHomeTeam]
         }
       })
-      const leagueToPrint = res.data.events.map((game) => {
-        return game.strLeague
-      })
-      const filteredLeagueToPrint = leagueToPrint.filter((v, i) => {
-        return leagueToPrint.indexOf(v) === i
-      })
-      const temporaryLeagueArray = this.state.selectedLeagues;
-      temporaryLeagueArray.push(filteredLeagueToPrint.toString());
       this.setState({
         teamSchedule: upcomingGames,
-        selectedLeagues: temporaryLeagueArray
       })
       const userSelectedTeam = {
         teamBadge: this.state.teamBadge,
@@ -108,7 +98,6 @@ class App extends Component {
         teamSchedule: this.state.teamSchedule
       }
       dbRef.push(userSelectedTeam);
-      console.log(this.state.selectedLeagues);
     })
   }
   removeTeam = (e) => {
@@ -161,8 +150,7 @@ class App extends Component {
                   ?
                   <Schedule 
                     favoriteTeams={this.state.favoriteTeams}
-                    showLeague={this.showLeague}
-                    selectedLeagues={this.state.selectedLeagues} />
+                    showLeague={this.showLeague} />
                   :
                   null
                 }

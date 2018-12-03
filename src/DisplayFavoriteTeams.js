@@ -20,7 +20,7 @@ class DisplayFavoriteTeams extends Component {
   }
   noFavoriteTeams = () => {
     return (
-      <div>
+      <div className="not-a-fan-banner">
         <p>Not a fan?</p>
         <button onClick={this.props.showLeague}>Find some teams to follow!</button>
       </div>
@@ -30,7 +30,7 @@ class DisplayFavoriteTeams extends Component {
     return (
       <div>
         <h2 className="section-title">My teams</h2>
-        <section className="display-teams">
+        <section className={this.props.favoriteTeams ? "display-teams" : null}>
           {
             this.props.favoriteTeams
             ? 

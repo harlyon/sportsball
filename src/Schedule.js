@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 
 class Schedule extends Component {
+  constructor() {
+    super();
+    this.state = {
+      leagues: ['NHL', 'NBA', 'NFL']
+    }
+  }
   displaySchedule = (category) => {
     return (
       <div className="schedule-tile">
@@ -47,40 +53,38 @@ class Schedule extends Component {
     )
   }
   displayAllSchedules = () => {
-    if (this.props.selectedLeagues) {
-      return (
-        <div className="schedule-grid">
-          {this.props.selectedLeagues.includes('NHL') === true
-          ?
-          this.displaySchedule('NHL')
-          :
-          null
-          }
-          {this.props.selectedLeagues.includes('NBA') === true
-          ?
-          this.displaySchedule('NBA')
-          :
-          null
-          }
-          {this.props.selectedLeagues.includes('NFL') === true
-          ?
-          this.displaySchedule('NFL')
-          :
-          null
-          }
-          {this.props.selectedLeagues.includes('MLB') === true
-          ?
-          this.displaySchedule('MLB')
-          :
-          null
-          }
-        </div>
-      )
-    }
+    return (
+      <div className="schedule-grid">
+        {this.state.leagues.includes('NHL') === true
+        ?
+        this.displaySchedule('NHL')
+        :
+        null
+        }
+        {this.state.leagues.includes('NBA') === true
+        ?
+        this.displaySchedule('NBA')
+        :
+        null
+        }
+        {this.state.leagues.includes('NFL') === true
+        ?
+        this.displaySchedule('NFL')
+        :
+        null
+        }
+        {this.state.leagues.includes('MLB') === true
+        ?
+        this.displaySchedule('MLB')
+        :
+        null
+        }
+      </div>
+    )
   }
   noSchedule = () => {
     return (
-      <div>
+      <div className="not-a-fan-banner">
         <p>Not a fan?</p>
         <button onClick={this.props.showLeague}>Find some teams to follow!</button>
       </div>
@@ -101,5 +105,4 @@ class Schedule extends Component {
     )
   }
 }
-
 export default Schedule;

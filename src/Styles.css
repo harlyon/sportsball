@@ -9,11 +9,16 @@ html {
 body {
   font-size: 1.6rem;
   font-family: 'Roboto', sans-serif;
+  color: #333;
 }
 
 h1, h2, button {
   font-family: 'Work Sans', sans-serif;
   text-transform: uppercase;
+}
+
+button {
+  cursor: pointer;
 }
 
 .wrapper {
@@ -37,6 +42,8 @@ h1, h2, button {
 font-family: 'Work Sans', sans-serif;
 font-family: 'Roboto', sans-serif;
  */
+
+
 
 /* ***** HEADER - START ***** */
 
@@ -94,6 +101,21 @@ font-family: 'Roboto', sans-serif;
   padding: 20px 0;
 }
 
+.not-a-fan-banner {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.not-a-fan-banner p {
+  font-size: 2rem;
+}
+
+.not-a-fan-banner button {
+  font-size: 1.8rem;
+  text-transform: none;
+
+}
+
 /* ***** GENERAL STYLINGS - END ***** */
 
 /* ***** SCHEDULES - START ***** */
@@ -116,6 +138,7 @@ font-family: 'Roboto', sans-serif;
   position: relative;
   margin: 0;
   padding: 10px 0;
+  font-size: 3rem;
 }
 
 .schedule-tile .category-title::after {
@@ -132,7 +155,7 @@ font-family: 'Roboto', sans-serif;
   grid-template-columns: auto 1fr;
   grid-column-gap: 10px;
   align-items: center;
-  margin: 20px auto 0 auto;
+  margin: 40px auto 20px auto;
   max-width: 400px;
 }
 
@@ -160,7 +183,6 @@ font-family: 'Roboto', sans-serif;
 }
 
 .event-grid-away-team, .event-grid-home-team {
-  text-align: center;
   padding: 0 5px;
 }
 
@@ -211,6 +233,13 @@ font-family: 'Roboto', sans-serif;
   }
 }
 
+@media (min-width: 1280px) {
+  .display-teams {
+    grid-template-columns: repeat(5, 1fr);
+    max-width: none;
+  }
+}
+
 /* ***** MY TEAMS - END ***** */
 
 /* ***** LEAGUES - START ***** */
@@ -219,6 +248,7 @@ font-family: 'Roboto', sans-serif;
   display: flex;
   justify-content: center;
   padding: 20px 0;
+  /* font-size: 2rem; */
 }
 
 .league-submit {
@@ -271,6 +301,13 @@ font-family: 'Roboto', sans-serif;
   .team-by-league {
     grid-template-columns: repeat(4, 1fr);
     max-width: 1000px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .team-by-league {
+    grid-template-columns: repeat(5, 1fr);
+    max-width: 1280px;
   }
 }
 /* ***** LEAGUES - END ***** */
