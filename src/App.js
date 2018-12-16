@@ -139,7 +139,7 @@ class App extends Component {
                   className={this.state.currentView === 'league' ? 'selected button button-schedule' : 'button button-leagues'}>
                   Leagues</button>
               </nav>
-              <h1 className="header-title">Fan Feed</h1>
+              <h1 className="header-title">Boxscore Buddy</h1>
             </div>
           </header>
           <main>
