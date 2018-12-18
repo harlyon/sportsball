@@ -185,7 +185,7 @@ class App extends Component {
         </div>
         <footer className="footer">
           <p>&copy; Jonathan 2018</p>
-          <p>API information courtesy of <a href="https://www.thesportsdb.com/api.php">TheSportsDB</a></p>
+          <p><a href="https://jonathanhoy.com/" className="portfolio-link">Back to Portfolio</a> | API information courtesy of <a href="https://www.thesportsdb.com/api.php">TheSportsDB</a></p>
         </footer>
       </div>
     );
