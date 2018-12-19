@@ -73,12 +73,12 @@ class Schedule extends Component {
         :
         null
         }
-        {this.state.leagues.includes('MLB') === true
+        {/* {this.state.leagues.includes('MLB') === true
         ?
         this.displaySchedule('MLB')
         :
         null
-        }
+        } */}
       </div>
     )
   }

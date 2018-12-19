@@ -4,7 +4,6 @@ class DisplayFavoriteTeams extends Component {
   displayFavoriteTeams = () => {
     return (
       Object.entries(this.props.favoriteTeams).map((team) => {
-        console.log(team)
         if (team[0] !== 'leagues' ) {
           return (
             <div key={team[0]} className="team-tile">
