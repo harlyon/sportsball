@@ -6,7 +6,7 @@ const TeamsInLeague = ({teams, fetchTeamSchedule}) => {
   return (
     <div className="team-by-league">
       {
-        teams.map((team) => {          
+        teams.map((team) => {
           return (
             <div key={team.idTeam} id={team.idTeam}>
               <button

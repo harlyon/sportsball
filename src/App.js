@@ -60,8 +60,6 @@ class App extends Component {
   }
   fetchTeamSchedule = (e) => {
     e.preventDefault();
-    console.log(e);
-    
     const getTeamBadge = e.target.getAttribute('data-team-badge');
     const getTeamID = e.target.id;
     const getTeamLeague = e.target.getAttribute('data-team-league');
@@ -75,28 +73,30 @@ class App extends Component {
     swal(`${getTeamName} has been added to your favorite teams.`);
     Axios.get(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${e.target.id}`, {
     }).then((res) => {
-      const upcomingGames = res.data.events.map((game) => {
-        const regDate = moment(`${game.dateEvent}`, 'YYYY-MM-DD').format('dddd MMMM D, YYYY');
-        const nbaDate = moment(`${game.dateEvent} ${game.strTime}`, 'YYYY-MM-DD HH:mm').subtract(5, 'hours').format('dddd MMMM D, YYYY');
-        if (game.strLeague === 'NHL') {
-          return [regDate, game.strHomeTeam, game.strAwayTeam]
-        } else if (game.strLeague === 'NBA') {
-          return [nbaDate, game.strAwayTeam, game.strHomeTeam]
-        } else {
-          return [regDate, game.strAwayTeam, game.strHomeTeam]
+      if (res.data.events !== null) {
+        const upcomingGames = res.data.events.map((game) => {
+          const regDate = moment(`${game.dateEvent}`, 'YYYY-MM-DD').format('dddd MMMM D, YYYY');
+          const nbaDate = moment(`${game.dateEvent} ${game.strTime}`, 'YYYY-MM-DD HH:mm').subtract(5, 'hours').format('dddd MMMM D, YYYY');
+          if (game.strLeague === 'NHL') {
+            return [regDate, game.strHomeTeam, game.strAwayTeam]
+          } else if (game.strLeague === 'NBA') {
+            return [nbaDate, game.strAwayTeam, game.strHomeTeam]
+          } else {
+            return [regDate, game.strAwayTeam, game.strHomeTeam]
+          }
+        })
+        this.setState({
+          teamSchedule: upcomingGames,
+        })
+        const userSelectedTeam = {
+          teamBadge: this.state.teamBadge,
+          teamID: this.state.teamID,
+          teamLeague: this.state.teamLeague,
+          teamName: this.state.teamName,
+          teamSchedule: this.state.teamSchedule
         }
-      })
-      this.setState({
-        teamSchedule: upcomingGames,
-      })
-      const userSelectedTeam = {
-        teamBadge: this.state.teamBadge,
-        teamID: this.state.teamID,
-        teamLeague: this.state.teamLeague,
-        teamName: this.state.teamName,
-        teamSchedule: this.state.teamSchedule
+        dbRef.push(userSelectedTeam);
       }
-      dbRef.push(userSelectedTeam);
     })
   }
   removeTeam = (e) => {

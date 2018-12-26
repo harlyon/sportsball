@@ -32,7 +32,7 @@ class DisplayFavoriteTeams extends Component {
     return (
       <div>
         <h2 className="section-title">My teams</h2>
-        <section className={this.props.favoriteTeams ? "display-teams" : ''}>
+        <section className={this.props.favoriteTeams && "display-teams"}>
           {
             this.props.favoriteTeams
             ? 
