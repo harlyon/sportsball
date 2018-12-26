@@ -1,0 +1,74 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+
+h1, h2, button {
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
+}
+
+button {
+  cursor: pointer;
+}
+
+.wrapper {
+  max-width: 1280px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.section-title {
+  text-align: center;
+  margin: 0;
+  padding: 20px 0;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  right: 25%;
+  border-bottom: 1px solid #333;
+  margin: 0;
+  padding: 20px 0;
+}
+
+.not-a-fan-banner {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.not-a-fan-banner p {
+  font-size: 2rem;
+}
+
+.not-a-fan-banner button {
+  font-size: 1.8rem;
+  text-transform: none;
+}
+
+.team-badge, img {
+  max-width: 100px;
+}
+
+@media (min-width: 768px) {
+  .team-tile:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
+  }
+}

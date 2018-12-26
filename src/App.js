@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import firebase from './firebase';
 import swal from 'sweetalert';
+import './styles.scss';
 
 // class-based/simple functional components
 import LeagueForm from './LeagueForm';
