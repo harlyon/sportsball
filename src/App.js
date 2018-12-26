@@ -13,7 +13,6 @@ import Schedule from './Schedule'
 
 // reference to the root of the firebase database
 const dbRef = firebase.database().ref();
-// const leagueRef = firebase.database().ref(`league/`);
 
 // moment.js to fix date issues
 const moment = require('moment');
@@ -26,8 +25,6 @@ class App extends Component {
       league: 'nhl', // default league
       teamsByLeague: [],
       favoriteTeams: {},
-      // teamsAlreadyAdded: [],
-      // leaguesAlreadyAdded: [],
       currentView: 'schedule', // default view
       // the folllowing are for pushing favorite team info to firebase
       teamBadge: '',
@@ -43,11 +40,6 @@ class App extends Component {
         favoriteTeams: snapshot.val()
       })
     });
-    // leagueRef.on('value', (snapshot) => {
-    //   this.setState({
-    //     leaguesAlreadyAdded: snapshot.val()
-    //   })
-    // })
   }
   handleSubmit = (e) => {
     e.preventDefault();
@@ -68,14 +60,12 @@ class App extends Component {
   }
   fetchTeamSchedule = (e) => {
     e.preventDefault();
+    console.log(e);
+    
     const getTeamBadge = e.target.getAttribute('data-team-badge');
     const getTeamID = e.target.id;
-    const getTeamLeague = e.target.value;
+    const getTeamLeague = e.target.getAttribute('data-team-league');
     const getTeamName = e.target.getAttribute('data-team-name');
-    // const tempTeamArray = this.state.teamsAlreadyAdded;
-    // tempTeamArray.push(getTeamID);
-    // const tempLeagueArray = this.state.leaguesAlreadyAdded;
-    // tempLeagueArray.push(getTeamLeague);
     this.setState({
       teamBadge: getTeamBadge,
       teamID: getTeamID,
@@ -107,7 +97,6 @@ class App extends Component {
         teamSchedule: this.state.teamSchedule
       }
       dbRef.push(userSelectedTeam);
-      // leagueRef.push(tempLeagueArray);
     })
   }
   removeTeam = (e) => {
@@ -186,7 +175,6 @@ class App extends Component {
                       teams={this.state.teamsByLeague} />
                     <TeamsInLeague
                       teams={this.state.teamsByLeague}
-                      // captureTeam={this.captureTeam}
                       fetchTeamSchedule={this.fetchTeamSchedule} />
                   </div>
                   :

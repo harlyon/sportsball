@@ -6,21 +6,34 @@ const TeamsInLeague = ({teams, fetchTeamSchedule}) => {
   return (
     <div className="team-by-league">
       {
-        teams.map((team) => {
+        teams.map((team) => {          
           return (
-            <div key={team.idTeam}>
+            <div key={team.idTeam} id={team.idTeam}>
               <button
                 className="team-tile"
                 type="checkbox"
                 id={team.idTeam}
-                value={team.strLeague}
+                data-team-league={team.strLeague}
                 data-team-name={team.strTeam}
                 data-team-badge={team.strTeamBadge}
                 onClick={fetchTeamSchedule}
-                // can't get onTouchStart to work?
-                onTouchStart={fetchTeamSchedule}>
-                  <img src={team.strTeamBadge} alt={team.strTeam} className="team-badge" />
-                  <h2 className="team-name">{team.strTeam}</h2>
+                >
+                <img
+                  src={team.strTeamBadge}
+                  alt={team.strTeam}
+                  className="team-badge" 
+                  id={team.idTeam}
+                  data-team-league={team.strLeague}
+                  data-team-name={team.strTeam}
+                  data-team-badge={team.strTeamBadge} />
+                <h2
+                  className="team-name"
+                  id={team.idTeam}
+                  data-team-league={team.strLeague}
+                  data-team-name={team.strTeam}
+                  data-team-badge={team.strTeamBadge} >
+                  {team.strTeam}
+                </h2>
               </button>
             </div>
           )
