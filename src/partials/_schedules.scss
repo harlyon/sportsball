@@ -21,15 +21,15 @@
 }
 
 .event {
-  border-bottom: 1px solid $black;
+  border-top: 1px solid $black;
   &:last-child {
-    border-bottom: none;
     p:last-child {
       margin-bottom: 0;
     }
   }
   p {
     line-height: 1.6;
+    margin-bottom: 16px;
     &:last-child {
       font-size: 1.4rem;
     }

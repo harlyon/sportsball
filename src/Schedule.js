@@ -11,13 +11,12 @@ class Schedule extends Component {
               key={team[0]}
               className="schedule__team-card"
               style={{
-                background: `linear-gradient(rgba(255,255,255,0.96), rgba(255,255,255,0.96)), url(${team[1].teamBadge})`,
+                background: `linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url(${team[1].teamBadge})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center'
               }}>
               <div className="schedule__team-info">
-                {/* <img src={team[1].teamBadge} alt="" className="schedule__team-image" /> */}
                 <h2 className="schedule__team-name">{team[1].teamName}</h2>
                 <p className="schedule__team-league">{team[1].teamLeague}</p>
               </div>
