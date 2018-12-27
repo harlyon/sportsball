@@ -27,12 +27,15 @@
       margin-bottom: 0;
     }
   }
-  p {
+  &__date {
     line-height: 1.6;
     margin-bottom: 16px;
     &:last-child {
       font-size: 1.4rem;
     }
+  }
+  &__offseason {
+    font-size: 1.6rem;
   }
 }
 

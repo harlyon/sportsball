@@ -11,23 +11,23 @@ class TeamsInLeague extends Component {
                 <button
                   className="team-tile"
                   type="checkbox"
-                  id={team.idTeam}
+                  data-team-id={team.idTeam}
                   data-team-league={team.strLeague}
                   data-team-name={team.strTeam}
                   data-team-badge={team.strTeamBadge}
-                  onClick={this.props.fetchTeamSchedule}
+                  onClick={this.props.addTeamToFavorites}
                 >
                   <img
                     src={team.strTeamBadge}
                     alt={team.strTeam}
                     className="team-badge"
-                    id={team.idTeam}
+                    data-team-id={team.idTeam}
                     data-team-league={team.strLeague}
                     data-team-name={team.strTeam}
                     data-team-badge={team.strTeamBadge} />
                   <h2
                     className="team-name"
-                    id={team.idTeam}
+                    data-team-id={team.idTeam}
                     data-team-league={team.strLeague}
                     data-team-name={team.strTeam}
                     data-team-badge={team.strTeamBadge} >

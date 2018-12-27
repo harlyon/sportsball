@@ -3,11 +3,15 @@ import firebase from './firebase';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import './styles.scss';
 
-import LeagueForm from './LeagueForm';
+import DisplayLeagueForm from './DisplayLeagueForm';
 import DisplayFavoriteTeams from './DisplayFavoriteTeams';
-import Schedule from './Schedule'
+import DisplaySchedules from './DisplaySchedules'
 
 const dbRef = firebase.database().ref();
+
+// moment.js to fix date issues
+const moment = require('moment');
+moment().format();
 
 class App extends Component {
   constructor() {
@@ -41,8 +45,8 @@ class App extends Component {
             <main className="main">
               <div className="wrapper">
                   <Route path="/my-teams" render={(props) => <DisplayFavoriteTeams {...props} favoriteTeams={this.state.favoriteTeams} /> } />
-                  <Route path="/schedules" render={(props) => <Schedule {...props} favoriteTeams={this.state.favoriteTeams} /> } />
-                  <Route path="/leagues" component={LeagueForm} />
+                  <Route path="/schedules" render={(props) => <DisplaySchedules {...props} favoriteTeams={this.state.favoriteTeams} /> } />
+                  <Route path="/leagues" component={DisplayLeagueForm} />
               </div>
             </main>
           </div>
