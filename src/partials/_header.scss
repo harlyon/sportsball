@@ -1,5 +1,5 @@
 .header {
-  background: #333;
+  background: $black;
   position: sticky;
   top: 0;
   left: 0;
@@ -13,19 +13,20 @@
   align-items: center;
 }
 
-.header .button {
+.header a {
   margin-top: 10px;
   padding: 5px;
   border: none;
   background: none;
   color: #a3a3a3;
+  text-decoration: none;
 }
 
-.header .button.selected {
-  color: white;
-  border-bottom: 1px solid white;
+.header a.selected {
+  color: $white;
+  border-bottom: 1px solid $white;
 }
 
 .header-title {
-  color: white;
+  color: $white;
 }
