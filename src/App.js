@@ -52,8 +52,10 @@ class App extends Component {
             </main>
           </div>
           <footer className="footer">
-            <p><a href="https://jonathanhoy.com/" className="portfolio-link">Back to Portfolio</a> | &copy; Jonathan 2018</p>
-            <p>API information courtesy of <a href="https://www.thesportsdb.com/api.php">TheSportsDB</a></p>
+            <div className="wrapper">
+              <p><a href="https://jonathanhoy.com/" className="portfolio-link">Back to Portfolio</a> | &copy; Jonathan 2018</p>
+              <p>API information courtesy of <a href="https://www.thesportsdb.com/api.php">TheSportsDB</a></p>
+            </div>
           </footer>
         </div>
       </Router>

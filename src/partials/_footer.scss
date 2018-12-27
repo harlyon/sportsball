@@ -1,9 +1,11 @@
 .footer {
-  text-align: center;
   background: $black;
   padding: 20px 0;
-  justify-self: flex-end;
   line-height: 1.6;
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
   p, a {
     color: $white;
     margin: 0;

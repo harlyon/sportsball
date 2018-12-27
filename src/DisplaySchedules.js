@@ -12,6 +12,7 @@ class DisplaySchedules extends Component {
   }
   updateSchedules = () => {
     Object.entries(this.props.favoriteTeams)
+    // eslint-disable-next-line
       .map((team) => {
         const firebaseKey = team[0];
         const teamID = team[1].teamID;
