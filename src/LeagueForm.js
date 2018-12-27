@@ -17,8 +17,6 @@ class LeagueForm extends Component {
     this.state = {
       league: 'nhl', // default league
       teamsByLeague: [],
-      favoriteTeams: {},
-      // the folllowing are for pushing favorite team info to firebase
       teamBadge: '',
       teamID: 0,
       teamLeague: '',
@@ -29,8 +27,6 @@ class LeagueForm extends Component {
   fetchLeague = () => {
     Axios.get(`https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=${this.state.league}`, {
     }).then((res) => {
-      console.log('league results', res);
-
       this.setState({
         teamsByLeague: res.data.teams
       })
@@ -51,8 +47,6 @@ class LeagueForm extends Component {
     swal(`${getTeamName} has been added to your favorite teams.`);
     Axios.get(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${e.target.id}`, {
     }).then((res) => {
-      console.log('team sched results', res);
-
       if (res.data.events !== null) {
         const upcomingGames = res.data.events.map((game) => {
           const regDate = moment(`${game.dateEvent}`, 'YYYY-MM-DD').format('dddd MMMM D, YYYY');
@@ -79,14 +73,14 @@ class LeagueForm extends Component {
       }
     })
   }
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.fetchLeague();
-  }
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     })
+  }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.fetchLeague();
   }
   displayForm = () => {
     return (

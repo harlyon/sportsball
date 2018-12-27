@@ -33,6 +33,9 @@
   grid-column-gap: 20px;
   transition: all 0.1s;
   width: 100%;
+  h2 {
+    text-align: center;
+  }
 }
 
 @media (min-width: 768px) {

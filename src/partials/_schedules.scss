@@ -1,24 +1,22 @@
 .schedule {
   margin: 50px 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
   &__team-card {
     border: 2px solid $black;
-    width: calc(33% - 10px);
-    margin: 10px 20px 10px 0;
     padding: 20px;
-    text-align: center;
-    &:nth-child(3n) {
-      margin-right: 0;
-    }
+  }
+  &__team-info {
+    margin: 30px 0;
   }
   &__team-name {
-    margin-bottom: 0;
+    height: 54px;
+    margin: 0;
   }
   &__team-league {
+    margin: 0;
     margin-top: 10px;
-    margin-bottom: 32px;
   }
 }
 
@@ -26,6 +24,9 @@
   border-bottom: 1px solid $black;
   &:last-child {
     border-bottom: none;
+    p:last-child {
+      margin-bottom: 0;
+    }
   }
   p {
     line-height: 1.6;
