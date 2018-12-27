@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import firebase from './firebase';
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink, Redirect } from 'react-router-dom';
 import './styles.scss';
 
 import DisplayLeagueForm from './DisplayLeagueForm';
@@ -45,6 +45,7 @@ class App extends Component {
             </header>
             <main className="main">
               <div className="wrapper">
+                  <Route exact path='/' render={() => (<Redirect to='/schedules' />)} />
                   <Route path="/my-teams" render={(props) => <DisplayFavoriteTeams {...props} favoriteTeams={this.state.favoriteTeams} /> } />
                   <Route path="/schedules" render={(props) => <DisplaySchedules {...props} favoriteTeams={this.state.favoriteTeams} /> } />
                   <Route path="/leagues" render={(props) => <DisplayLeagueForm {...props} favoriteTeams={this.state.favoriteTeams} /> } />

@@ -62,6 +62,7 @@ class DisplaySchedules extends Component {
                     team[1].teamSchedule.map((game) => {
                       const today = moment().format('dddd MMMM D, YYYY');
                       const yesterday = moment().subtract(1, 'day').format('dddd MMMM D, YYYY');
+                      const tomorrow = moment().add(1, 'day').format('dddd MMMM D, YYYY');
                       let dateOfMatch = game[0];
                       const awayTeam = game[1];
                       const homeTeam = game[2];
@@ -69,6 +70,8 @@ class DisplaySchedules extends Component {
                         dateOfMatch = 'Today';
                       } else if (dateOfMatch === yesterday) {
                         dateOfMatch = 'Yesterday';
+                      } else if (dateOfMatch === tomorrow) {
+                        dateOfMatch = 'Tomorrow';
                       };
                       return (
                         <div key={dateOfMatch} className="event">
