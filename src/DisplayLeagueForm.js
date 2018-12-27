@@ -4,7 +4,6 @@ import firebase from './firebase';
 import swal from 'sweetalert';
 import Axios from 'axios';
 
-// reference to the root of the firebase database
 const dbRef = firebase.database().ref();
 
 class DisplayLeagueForm extends Component {
@@ -17,16 +16,16 @@ class DisplayLeagueForm extends Component {
   }
   displayForm = () => {
     return (
-      <section className="league">
+      <section className="leagues">
         <h2 className="section-title">Leagues</h2>
         <form
           action=""
-          className="league-form"
+          className="form"
           onSubmit={this.handleSubmit}>
           <select
             name="league"
             id="league"
-            className="league-select"
+            className="form__select"
             placeholder="Please select a league"
             value={this.state.league}
             onChange={this.handleChange}>
@@ -37,8 +36,8 @@ class DisplayLeagueForm extends Component {
           </select>
           <input
             type="submit"
-            value="Go!"
-            className="league-submit" />
+            value="Go"
+            className="form__submit" />
         </form>
       </section>
     )
@@ -61,7 +60,6 @@ class DisplayLeagueForm extends Component {
     })
   }
   addTeamToFavorites = (e) => {
-    e.preventDefault();
     const userSelectedTeam = {
       teamID: e.target.getAttribute('data-team-id'),
       teamName: e.target.getAttribute('data-team-name'),
@@ -77,6 +75,7 @@ class DisplayLeagueForm extends Component {
         {this.displayForm()}
         <TeamsInLeague 
           teamsByLeague={this.state.teamsByLeague}
+          favoriteTeams={this.props.favoriteTeams}
           addTeamToFavorites={this.addTeamToFavorites} />
       </div>
     )

@@ -9,9 +9,9 @@ import DisplaySchedules from './DisplaySchedules'
 
 const dbRef = firebase.database().ref();
 
-// moment.js to fix date issues
 const moment = require('moment');
 moment().format();
+const today = moment().format('dddd MMMM D, YYYY');
 
 class App extends Component {
   constructor() {
@@ -34,19 +34,20 @@ class App extends Component {
           <div>
             <header className="header">
               <div className="wrapper">
+                <h1 className="header__title">Boxscore Buddy</h1>
                 <nav className="nav">
-                  <NavLink to="/my-teams" className="nav__link">My Teams</NavLink>
-                  <NavLink to="/schedules" className="nav__link">Schedules</NavLink>
-                  <NavLink to="/leagues" className="nav__link">Leagues</NavLink>
+                  <NavLink to="/my-teams" className="nav__link" activeClassName="active">My Teams</NavLink>
+                  <NavLink to="/schedules" className="nav__link" activeClassName="active">Schedules</NavLink>
+                  <NavLink to="/leagues" className="nav__link" activeClassName="active">Leagues</NavLink>
                 </nav>
-                <h1 className="header-title">Boxscore Buddy</h1>
+                <p className="header__date">{today}</p>
               </div>
             </header>
             <main className="main">
               <div className="wrapper">
                   <Route path="/my-teams" render={(props) => <DisplayFavoriteTeams {...props} favoriteTeams={this.state.favoriteTeams} /> } />
                   <Route path="/schedules" render={(props) => <DisplaySchedules {...props} favoriteTeams={this.state.favoriteTeams} /> } />
-                  <Route path="/leagues" component={DisplayLeagueForm} />
+                  <Route path="/leagues" render={(props) => <DisplayLeagueForm {...props} favoriteTeams={this.state.favoriteTeams} /> } />
               </div>
             </main>
           </div>

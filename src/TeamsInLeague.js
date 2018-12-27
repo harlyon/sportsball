@@ -3,13 +3,13 @@ import React, {Component} from 'react';
 class TeamsInLeague extends Component {
   render() {
     return (
-      <div className="team-by-league">
+      <div className="league">
         {
           this.props.teamsByLeague.map((team) => {
             return (
-              <div key={team.idTeam} id={team.idTeam}>
+              <div key={team.idTeam} id={team.idTeam} className="team">
                 <button
-                  className="team-tile"
+                  className="team__button"
                   type="checkbox"
                   data-team-id={team.idTeam}
                   data-team-league={team.strLeague}
@@ -20,13 +20,13 @@ class TeamsInLeague extends Component {
                   <img
                     src={team.strTeamBadge}
                     alt={team.strTeam}
-                    className="team-badge"
+                    className="team__badge"
                     data-team-id={team.idTeam}
                     data-team-league={team.strLeague}
                     data-team-name={team.strTeam}
                     data-team-badge={team.strTeamBadge} />
                   <h2
-                    className="team-name"
+                    className="team__name"
                     data-team-id={team.idTeam}
                     data-team-league={team.strLeague}
                     data-team-name={team.strTeam}

@@ -12,7 +12,7 @@ class DisplayFavoriteTeams extends Component {
     return (
       Object.entries(this.props.favoriteTeams).map((team) => {
         return (
-          <div key={team[0]} className="team-tile">
+          <div key={team[0]} className="team__button">
             <img src={team[1].teamBadge} alt={team[1].teamName} />
             <h2>{team[1].teamName}</h2>
             <button

@@ -3,7 +3,6 @@ import NoFavoriteTeams from './NoFavoriteTeams';
 import Axios from 'axios';
 import firebase from './firebase';
 
-// moment.js to fix date issues
 const moment = require('moment');
 moment().format();
 
@@ -12,31 +11,29 @@ class DisplaySchedules extends Component {
     this.updateSchedules();
   }
   updateSchedules = () => {
-    return (
-      Object.entries(this.props.favoriteTeams)
-        .map((team) => {
-          const firebaseKey = team[0];
-          const teamID = team[1].teamID;
-          Axios.get(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${teamID}`, {
-          }).then((res) => {
-            if (res.data.events !== null) {
-              const upcomingGames = res.data.events.map((game) => {
-                const regDate = moment(`${game.dateEvent}`, 'YYYY-MM-DD').format('dddd MMMM D, YYYY');
-                const nbaDate = moment(`${game.dateEvent} ${game.strTime}`, 'YYYY-MM-DD HH:mm').subtract(5, 'hours').format('dddd MMMM D, YYYY');
-                if (game.strLeague === 'NHL') {
-                  return [regDate, game.strHomeTeam, game.strAwayTeam]
-                } else if (game.strLeague === 'NBA') {
-                  return [nbaDate, game.strAwayTeam, game.strHomeTeam]
-                } else {
-                  return [regDate, game.strAwayTeam, game.strHomeTeam]
-                }
-              });
-              const teamRef = firebase.database().ref(`/${firebaseKey}/teamSchedule`);
-              teamRef.set(upcomingGames);
-            }
-          })
+    Object.entries(this.props.favoriteTeams)
+      .map((team) => {
+        const firebaseKey = team[0];
+        const teamID = team[1].teamID;
+        Axios.get(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${teamID}`, {
+        }).then((res) => {
+          if (res.data.events !== null) {
+            const upcomingGames = res.data.events.map((game) => {
+              const regDate = moment(`${game.dateEvent}`, 'YYYY-MM-DD').format('dddd MMMM D, YYYY');
+              const nbaDate = moment(`${game.dateEvent} ${game.strTime}`, 'YYYY-MM-DD HH:mm').subtract(5, 'hours').format('dddd MMMM D, YYYY');
+              if (game.strLeague === 'NHL') {
+                return [regDate, game.strHomeTeam, game.strAwayTeam]
+              } else if (game.strLeague === 'NBA') {
+                return [nbaDate, game.strAwayTeam, game.strHomeTeam]
+              } else {
+                return [regDate, game.strAwayTeam, game.strHomeTeam]
+              }
+            });
+            const teamRef = firebase.database().ref(`/${firebaseKey}/teamSchedule`);
+            teamRef.set(upcomingGames);
+          }
         })
-    )
+      })
   }
   displaySchedules = () => {
     return (
@@ -62,22 +59,29 @@ class DisplaySchedules extends Component {
                     team[1].teamSchedule
                     ?
                     team[1].teamSchedule.map((game) => {
-                      const date = game[0];
+                      const today = moment().format('dddd MMMM D, YYYY');
+                      const yesterday = moment().subtract(1, 'day').format('dddd MMMM D, YYYY');
+                      let dateOfMatch = game[0];
                       const awayTeam = game[1];
                       const homeTeam = game[2];
+                      if (dateOfMatch === today) {
+                        dateOfMatch = 'Today';
+                      } else if (dateOfMatch === yesterday) {
+                        dateOfMatch = 'Yesterday';
+                      };
                       return (
-                        <div key={date} className="event">
+                        <div key={dateOfMatch} className="event">
                           <p>
                             <span className="event__away-team">{awayTeam}</span>
                             {team[1].teamName === awayTeam ? ' @ ' : ' vs. '}
                             <span className="event__home-team">{homeTeam}</span>
                           </p>
-                          <p className="event__date">{date}</p>
+                          <p className="event__date">{dateOfMatch}</p>
                         </div>
                       )
                     })
                     :
-                      this.offseason()
+                    this.offseason(team[1].teamName)
                   }
                 </div>
               </div>
@@ -87,10 +91,10 @@ class DisplaySchedules extends Component {
       </div>
     )
   }
-  offseason = () => {
+  offseason = (teamName) => {
     return (
       <div className="event">
-        <p className="event__offseason">This team is currently offseason. Please check back later.</p>
+        <p className="event__offseason">The {teamName} are currently off-season. Please check back later.</p>
       </div>
     )
   }
