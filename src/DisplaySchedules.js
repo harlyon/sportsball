@@ -11,30 +11,32 @@ class DisplaySchedules extends Component {
     this.updateSchedules();
   }
   updateSchedules = () => {
-    Object.entries(this.props.favoriteTeams)
-    // eslint-disable-next-line
-      .map((team) => {
-        const firebaseKey = team[0];
-        const teamID = team[1].teamID;
-        Axios.get(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${teamID}`, {
-        }).then((res) => {
-          if (res.data.events !== null) {
-            const upcomingGames = res.data.events.map((game) => {
-              const regDate = moment(`${game.dateEvent}`, 'YYYY-MM-DD').format('dddd MMMM D, YYYY');
-              const nbaDate = moment(`${game.dateEvent} ${game.strTime}`, 'YYYY-MM-DD HH:mm').subtract(5, 'hours').format('dddd MMMM D, YYYY');
-              if (game.strLeague === 'NHL') {
-                return [regDate, game.strHomeTeam, game.strAwayTeam]
-              } else if (game.strLeague === 'NBA') {
-                return [nbaDate, game.strAwayTeam, game.strHomeTeam]
-              } else {
-                return [regDate, game.strAwayTeam, game.strHomeTeam]
-              }
-            });
-            const teamRef = firebase.database().ref(`/${firebaseKey}/teamSchedule`);
-            teamRef.set(upcomingGames);
-          }
+    if (this.props.favoriteTeams) {
+      Object.entries(this.props.favoriteTeams)
+      // eslint-disable-next-line
+        .map((team) => {
+          const firebaseKey = team[0];
+          const teamID = team[1].teamID;
+          Axios.get(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${teamID}`, {
+          }).then((res) => {
+            if (res.data.events !== null) {
+              const upcomingGames = res.data.events.map((game) => {
+                const regDate = moment(`${game.dateEvent}`, 'YYYY-MM-DD').format('dddd MMMM D, YYYY');
+                const nbaDate = moment(`${game.dateEvent} ${game.strTime}`, 'YYYY-MM-DD HH:mm').subtract(5, 'hours').format('dddd MMMM D, YYYY');
+                if (game.strLeague === 'NHL') {
+                  return [regDate, game.strHomeTeam, game.strAwayTeam]
+                } else if (game.strLeague === 'NBA') {
+                  return [nbaDate, game.strAwayTeam, game.strHomeTeam]
+                } else {
+                  return [regDate, game.strAwayTeam, game.strHomeTeam]
+                }
+              });
+              const teamRef = firebase.database().ref(`/${firebaseKey}/teamSchedule`);
+              teamRef.set(upcomingGames);
+            }
+          })
         })
-      })
+    }
   }
   displaySchedules = () => {
     return (

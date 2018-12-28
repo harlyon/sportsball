@@ -15,15 +15,16 @@ class DisplayFavoriteTeams extends Component {
     return (
       Object.entries(this.props.favoriteTeams).map((team) => {
         return (
-          <div key={team[0]} className="team__button">
-            <img src={team[1].teamBadge} alt={team[1].teamName} />
-            <h2>{team[1].teamName}</h2>
+          <div className="team" key={team[0]}>
+            <img src={team[1].teamBadge} alt={team[1].teamName} className="team__image" />
+            <h2 className="team__name">{team[1].teamName}</h2>
             <button
               onClick={this.removeTeam}
               id={team[0]}
               data-team-name={team[1].teamName}
+              className="team__remove"
               >
-              X
+              <i class="far fa-trash-alt"></i>
             </button>
           </div>
         )
@@ -34,7 +35,7 @@ class DisplayFavoriteTeams extends Component {
     return (
       <div>
         <h2 className="section-title">My teams</h2>
-        <section className={this.props.favoriteTeams && "favorite-teams"}>
+        <section className={this.props.favoriteTeams && "team-grid"}>
           {
             this.props.favoriteTeams
             ?

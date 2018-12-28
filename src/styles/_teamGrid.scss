@@ -1,0 +1,60 @@
+.team-grid {
+  border: 1px solid red;
+  display: grid;
+  grid-gap: 20px;
+}
+
+.team {
+  @include card;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  grid-column-gap: 20px;
+  position: relative;
+  &__name {
+    font-size: 1.8rem;
+    margin: 0;
+  }
+  &__remove {
+    font-size: 1.4rem;
+    border: none;
+    background: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+}
+
+@media (min-width: 500px) {
+  .team {
+    &__name {
+      font-size: 2.4rem;
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .team-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .team {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    height: 225px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .team-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .team-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

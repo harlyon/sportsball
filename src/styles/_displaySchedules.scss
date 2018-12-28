@@ -1,7 +1,6 @@
 .schedule {
   margin: 20px 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
   &__team-card {
     border: 2px solid $black;
@@ -41,4 +40,16 @@
 
 .event.hidden {
   display: none;
+}
+
+@media (min-width: 500px) {
+  .schedule {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px)  {
+  .schedule {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
