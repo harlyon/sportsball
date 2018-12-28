@@ -3,7 +3,7 @@ import firebase from './firebase';
 import { BrowserRouter as Router, Route, NavLink, Redirect } from 'react-router-dom';
 import './styles.scss';
 
-import DisplayLeagueForm from './DisplayLeagueForm';
+import DisplayLeagues from './DisplayLeagues';
 import DisplayFavoriteTeams from './DisplayFavoriteTeams';
 import DisplaySchedules from './DisplaySchedules'
 
@@ -11,7 +11,7 @@ const dbRef = firebase.database().ref();
 
 const moment = require('moment');
 moment().format();
-const today = moment().format('dddd MMMM D, YYYY');
+const currentDate = moment().format('dddd MMMM D, YYYY');
 
 class App extends Component {
   constructor() {
@@ -34,27 +34,27 @@ class App extends Component {
           <div>
             <header className="header">
               <div className="wrapper">
-                <h1 className="header__title">Boxscore Buddy</h1>
+                <h1 className="header__title">Sport Schedules</h1>
                 <nav className="nav">
-                  <NavLink to="/my-teams" className="nav__link" activeClassName="active">My Teams</NavLink>
                   <NavLink to="/schedules" className="nav__link" activeClassName="active">Schedules</NavLink>
+                  <NavLink to="/my-teams" className="nav__link" activeClassName="active">My Teams</NavLink>
                   <NavLink to="/leagues" className="nav__link" activeClassName="active">Leagues</NavLink>
                 </nav>
-                <p className="header__date">{today}</p>
+                <p className="header__date">{currentDate}</p>
               </div>
             </header>
             <main className="main">
               <div className="wrapper">
-                  <Route exact path='/' render={() => (<Redirect to='/schedules' />)} />
-                  <Route path="/my-teams" render={(props) => <DisplayFavoriteTeams {...props} favoriteTeams={this.state.favoriteTeams} /> } />
+                  <Route exact path='/' render={() => <Redirect to='/schedules' /> } />
                   <Route path="/schedules" render={(props) => <DisplaySchedules {...props} favoriteTeams={this.state.favoriteTeams} /> } />
-                  <Route path="/leagues" render={(props) => <DisplayLeagueForm {...props} favoriteTeams={this.state.favoriteTeams} /> } />
+                  <Route path="/my-teams" render={(props) => <DisplayFavoriteTeams {...props} favoriteTeams={this.state.favoriteTeams} /> } />
+                  <Route path="/leagues" render={(props) => <DisplayLeagues {...props} favoriteTeams={this.state.favoriteTeams} /> } />
               </div>
             </main>
           </div>
           <footer className="footer">
             <div className="wrapper">
-              <p><a href="https://jonathanhoy.com/" className="portfolio-link">Back to Portfolio</a> | &copy; Jonathan 2018</p>
+              <p>&copy; Jonathan 2018 | <a href="https://jonathanhoy.com/" className="portfolio-link">Back to Portfolio</a></p>
               <p>API information courtesy of <a href="https://www.thesportsdb.com/api.php">TheSportsDB</a></p>
             </div>
           </footer>
