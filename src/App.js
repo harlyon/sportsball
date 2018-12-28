@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import firebase from './firebase';
 import { BrowserRouter as Router, Route, NavLink, Redirect } from 'react-router-dom';
-import './styles.scss';
+import './styles/styles.scss';
 
 import DisplayLeagues from './DisplayLeagues';
 import DisplayFavoriteTeams from './DisplayFavoriteTeams';
 import DisplaySchedules from './DisplaySchedules'
-
-const dbRef = firebase.database().ref();
 
 const moment = require('moment');
 moment().format();
@@ -21,6 +19,7 @@ class App extends Component {
     }
   }
   componentDidMount() {
+    const dbRef = firebase.database().ref();
     dbRef.on('value', (snapshot) => {
       this.setState({
         favoriteTeams: snapshot.val()

@@ -18,7 +18,10 @@ button {
 }
 
 img {
-  max-width: 100px;
+  max-width: 50px;
+  @media (min-width: 500px) {
+    max-width: 100px;
+  }
 }
 
 .wrapper {
