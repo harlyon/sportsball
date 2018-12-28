@@ -15,7 +15,7 @@ class DisplayFavoriteTeams extends Component {
     return (
       Object.entries(this.props.favoriteTeams).map((team) => {
         return (
-          <div className="team" key={team[0]}>
+          <div className="team" key={team[0]} id={team[0]}>
             <img src={team[1].teamBadge} alt={team[1].teamName} className="team__image" />
             <h2 className="team__name">{team[1].teamName}</h2>
             <button
@@ -24,7 +24,7 @@ class DisplayFavoriteTeams extends Component {
               data-team-name={team[1].teamName}
               className="team__remove"
               >
-              <i class="far fa-trash-alt"></i>
+              &times;
             </button>
           </div>
         )

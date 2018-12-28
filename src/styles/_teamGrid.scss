@@ -1,7 +1,7 @@
 .team-grid {
-  border: 1px solid red;
   display: grid;
   grid-gap: 20px;
+  margin: 20px 0;
 }
 
 .team {
@@ -16,7 +16,6 @@
     margin: 0;
   }
   &__remove {
-    font-size: 1.4rem;
     border: none;
     background: none;
     margin: 0;
