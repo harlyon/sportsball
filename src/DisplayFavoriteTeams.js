@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import firebase from './firebase';
 import NoFavoriteTeams from './NoFavoriteTeams';
+import swal from 'sweetalert';
 
 class DisplayFavoriteTeams extends Component {
   removeTeam = (e) => {
+    const teamName = e.target.getAttribute('data-team-name');
     const firebaseKey = e.target.id;
     const teamRef = firebase.database().ref(`/${firebaseKey}`);
     teamRef.remove();
+    swal(`${teamName} has been removed from your favorite teams.`);
   }
   displayFavoriteTeams = () => {
     return (
@@ -17,7 +20,9 @@ class DisplayFavoriteTeams extends Component {
             <h2>{team[1].teamName}</h2>
             <button
               onClick={this.removeTeam}
-              id={team[0]}>
+              id={team[0]}
+              data-team-name={team[1].teamName}
+              >
               X
             </button>
           </div>
