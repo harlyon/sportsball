@@ -34,12 +34,12 @@ class App extends Component {
             <header className="header">
               <div className="wrapper">
                 <h1 className="header__title">Sport Schedules</h1>
+                <p className="header__date">{currentDate}</p>
                 <nav className="nav">
                   <NavLink to="/schedules" className="nav__link" activeClassName="active">Schedules</NavLink>
                   <NavLink to="/my-teams" className="nav__link" activeClassName="active">My Teams</NavLink>
                   <NavLink to="/leagues" className="nav__link" activeClassName="active">Leagues</NavLink>
                 </nav>
-                <p className="header__date">{currentDate}</p>
               </div>
             </header>
             <main className="main">
