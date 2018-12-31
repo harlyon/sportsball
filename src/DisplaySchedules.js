@@ -31,7 +31,7 @@ class DisplaySchedules extends Component {
                   return [regDate, game.strAwayTeam, game.strHomeTeam]
                 }
               });
-              const teamRef = firebase.database().ref(`/${firebaseKey}/teamSchedule`);
+              const teamRef = firebase.database().ref(`/${this.props.user.uid}/${firebaseKey}/teamSchedule`);
               teamRef.set(upcomingGames);
             }
           })

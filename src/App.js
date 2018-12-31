@@ -11,20 +11,55 @@ const moment = require('moment');
 moment().format();
 const currentDate = moment().format('dddd MMMM D, YYYY');
 
+const provider = new firebase.auth.GoogleAuthProvider();
+const auth = firebase.auth();
+const dbRef = firebase.database().ref();
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
+      user: null,
       favoriteTeams: {},
     }
   }
   componentDidMount() {
-    const dbRef = firebase.database().ref();
-    dbRef.on('value', (snapshot) => {
-      this.setState({
-        favoriteTeams: snapshot.val()
-      })
+    // dbRef.on('value', (snapshot) => {
+    //   this.setState({
+    //     favoriteTeams: snapshot.val()
+    //   })
+    // });
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          user: user
+        }, () => {
+          this.userRef = firebase.database().ref(`/${this.state.user.uid}`);
+          this.userRef.on('value', (snapshot) => {
+            this.setState({
+              favoriteTeams: snapshot.val()
+            })
+          })
+        });
+      }
     });
+  }
+  login = () => {
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        const user = result.user;
+        this.setState({
+          user
+        });
+      });
+  }
+  logout = () => {
+    auth.signOut()
+      .then(() => {
+        this.setState({
+          user: null
+        });
+      });
   }
   render() {
     return (
@@ -33,6 +68,13 @@ class App extends Component {
           <div>
             <header className="header">
               <div className="wrapper">
+                {
+                  this.state.user
+                  ?
+                  <button onClick={this.logout}>Log Out</button>
+                  :
+                  <button onClick={this.login}>Log In</button>
+                }
                 <h1 className="header__title">Sport Schedules</h1>
                 <p className="header__date">{currentDate}</p>
                 <nav className="nav">
@@ -42,14 +84,22 @@ class App extends Component {
                 </nav>
               </div>
             </header>
-            <main className="main">
-              <div className="wrapper">
-                  <Route exact path='/' render={() => <Redirect to='/schedules' /> } />
-                  <Route path="/schedules" render={(props) => <DisplaySchedules {...props} favoriteTeams={this.state.favoriteTeams} /> } />
-                  <Route path="/my-teams" render={(props) => <DisplayFavoriteTeams {...props} favoriteTeams={this.state.favoriteTeams} /> } />
-                  <Route path="/leagues" render={(props) => <DisplayLeagues {...props} favoriteTeams={this.state.favoriteTeams} /> } />
-              </div>
-            </main>
+            {
+              this.state.user
+              ?
+              (
+                <main className="main">
+                  <div className="wrapper">
+                      <Route exact path='/' render={() => <Redirect to='/schedules' /> } />
+                      <Route path="/schedules" render={(props) => <DisplaySchedules {...props} favoriteTeams={this.state.favoriteTeams} user={this.state.user} /> } />
+                      <Route path="/my-teams" render={(props) => <DisplayFavoriteTeams {...props} favoriteTeams={this.state.favoriteTeams} user={this.state.user} /> } />
+                      <Route path="/leagues" render={(props) => <DisplayLeagues {...props} favoriteTeams={this.state.favoriteTeams} user={this.state.user} /> } />
+                  </div>
+                </main>
+              )
+              :
+              <p>You must be logged in.</p>
+            }
           </div>
           <footer className="footer">
             <div className="wrapper">

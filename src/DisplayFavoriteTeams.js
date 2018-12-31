@@ -7,7 +7,7 @@ class DisplayFavoriteTeams extends Component {
   removeTeam = (e) => {
     const teamName = e.target.getAttribute('data-team-name');
     const firebaseKey = e.target.id;
-    const teamRef = firebase.database().ref(`/${firebaseKey}`);
+    const teamRef = firebase.database().ref(`/${this.props.user.uid}/${firebaseKey}`);
     teamRef.remove();
     swal(`${teamName} has been removed from your favorite teams.`);
   }

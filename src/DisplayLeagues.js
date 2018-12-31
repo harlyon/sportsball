@@ -4,7 +4,6 @@ import firebase from './firebase';
 import swal from 'sweetalert';
 import Axios from 'axios';
 
-const dbRef = firebase.database().ref();
 
 class DisplayLeagues extends Component {
   constructor() {
@@ -23,13 +22,14 @@ class DisplayLeagues extends Component {
     })
   }
   addTeamToFavorites = (e) => {
+    const userRef = firebase.database().ref(`/${this.props.user.uid}`);
     const userSelectedTeam = {
       teamID: e.target.getAttribute('data-team-id'),
       teamName: e.target.getAttribute('data-team-name'),
       teamLeague: e.target.getAttribute('data-team-league'),
       teamBadge: e.target.getAttribute('data-team-badge')
     }
-    dbRef.push(userSelectedTeam);
+    userRef.push(userSelectedTeam);
     swal(`${e.target.getAttribute('data-team-name')} has been added to your favorite teams.`);
   }
   render() {
