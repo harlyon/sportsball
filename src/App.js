@@ -5,7 +5,8 @@ import './styles/styles.scss';
 
 import DisplayLeagues from './DisplayLeagues';
 import DisplayFavoriteTeams from './DisplayFavoriteTeams';
-import DisplaySchedules from './DisplaySchedules'
+import DisplaySchedules from './DisplaySchedules';
+
 
 const moment = require('moment');
 moment().format();
@@ -13,7 +14,6 @@ const currentDate = moment().format('dddd MMMM D, YYYY');
 
 const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
-const dbRef = firebase.database().ref();
 
 class App extends Component {
   constructor() {
@@ -24,11 +24,6 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    // dbRef.on('value', (snapshot) => {
-    //   this.setState({
-    //     favoriteTeams: snapshot.val()
-    //   })
-    // });
     auth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({
@@ -44,12 +39,12 @@ class App extends Component {
       }
     });
   }
-  login = () => {
+  loginGoogle = () => {
     auth.signInWithPopup(provider)
       .then((result) => {
         const user = result.user;
         this.setState({
-          user
+          user: user
         });
       });
   }
@@ -68,27 +63,26 @@ class App extends Component {
           <div>
             <header className="header">
               <div className="wrapper">
-                {
-                  this.state.user
-                  ?
-                  <button onClick={this.logout}>Log Out</button>
-                  :
-                  <button onClick={this.login}>Log In</button>
-                }
                 <h1 className="header__title">Sport Schedules</h1>
                 <p className="header__date">{currentDate}</p>
                 <nav className="nav">
                   <NavLink to="/schedules" className="nav__link" activeClassName="active">Schedules</NavLink>
                   <NavLink to="/my-teams" className="nav__link" activeClassName="active">My Teams</NavLink>
                   <NavLink to="/leagues" className="nav__link" activeClassName="active">Leagues</NavLink>
+                  {
+                    this.state.user &&
+                    <button onClick={this.logout} className="nav__log-in-out">Log Out</button>
+                  }
                 </nav>
               </div>
             </header>
+            <main>
+            </main>
             {
               this.state.user
               ?
               (
-                <main className="main">
+                <main className="main main--logged-in">
                   <div className="wrapper">
                       <Route exact path='/' render={() => <Redirect to='/schedules' /> } />
                       <Route path="/schedules" render={(props) => <DisplaySchedules {...props} favoriteTeams={this.state.favoriteTeams} user={this.state.user} /> } />
@@ -98,7 +92,16 @@ class App extends Component {
                 </main>
               )
               :
-              <p>You must be logged in.</p>
+              (
+                <main className="main main--logged-out">
+                  <div className="wrapper">
+                    <h2 className="section-title">You must be logged in.</h2>
+                    <div className="main__log-in-out-button-container">
+                      <button onClick={this.loginGoogle} className="log-in">Log in with Google</button>
+                    </div>
+                  </div>
+                </main>
+              )
             }
           </div>
           <footer className="footer">
