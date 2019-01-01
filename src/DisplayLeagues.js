@@ -46,7 +46,6 @@ class DisplayLeagues extends Component {
         </section>
         <TeamsInLeague 
           teamsByLeague={this.state.teamsByLeague}
-          favoriteTeams={this.props.favoriteTeams}
           addTeamToFavorites={this.addTeamToFavorites} />
       </div>
     )

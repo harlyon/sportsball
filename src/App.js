@@ -10,7 +10,7 @@ import DisplaySchedules from './DisplaySchedules';
 
 const moment = require('moment');
 moment().format();
-const currentDate = moment().format('dddd MMMM D, YYYY');
+const currentDate = moment().format('dddd, MMMM D, YYYY');
 
 const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
@@ -24,19 +24,32 @@ class App extends Component {
     }
   }
   componentDidMount() {
+    // auth.onAuthStateChanged((user) => {
+    //   if (user) {
+    //     this.setState({
+    //       user: user
+    //     }, () => {
+    //       this.userRef = firebase.database().ref(`/${this.state.user.uid}`);
+    //       this.userRef.on('value', (snapshot) => {
+    //         this.setState({
+    //           favoriteTeams: snapshot.val()
+    //         })
+    //       })
+    //     });
+    //   }
+    // });
     auth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({
           user: user
-        }, () => {
-          this.userRef = firebase.database().ref(`/${this.state.user.uid}`);
-          this.userRef.on('value', (snapshot) => {
-            this.setState({
-              favoriteTeams: snapshot.val()
-            })
-          })
-        });
+        })
       }
+      // this.userRef = firebase.database().ref(`/${this.state.user.uid}`);
+      // this.userRef.on('value', (snapshot) => {
+      //   this.setState({
+      //     favoriteTeams: snapshot.val()
+      //   })
+      // })
     });
   }
   loginGoogle = () => {
@@ -55,6 +68,14 @@ class App extends Component {
           user: null
         });
       });
+  }
+  loginGuest = () => {
+    firebase.auth().signInAnonymously().catch(function (error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+    });
   }
   render() {
     return (
@@ -87,7 +108,7 @@ class App extends Component {
                       <Route exact path='/' render={() => <Redirect to='/schedules' /> } />
                       <Route path="/schedules" render={(props) => <DisplaySchedules {...props} favoriteTeams={this.state.favoriteTeams} user={this.state.user} /> } />
                       <Route path="/my-teams" render={(props) => <DisplayFavoriteTeams {...props} favoriteTeams={this.state.favoriteTeams} user={this.state.user} /> } />
-                      <Route path="/leagues" render={(props) => <DisplayLeagues {...props} favoriteTeams={this.state.favoriteTeams} user={this.state.user} /> } />
+                      <Route path="/leagues" render={(props) => <DisplayLeagues {...props} user={this.state.user} /> } />
                   </div>
                 </main>
               )
@@ -98,6 +119,7 @@ class App extends Component {
                     <h2 className="section-title">You must be logged in.</h2>
                     <div className="main__log-in-out-button-container">
                       <button onClick={this.loginGoogle} className="log-in">Log in with Google</button>
+                      <button onClick={this.loginGuest} className="log-in">Log in as Guest</button>
                     </div>
                   </div>
                 </main>

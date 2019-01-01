@@ -7,8 +7,22 @@ const moment = require('moment');
 moment().format();
 
 class DisplaySchedules extends Component {
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     favoriteTeamsSchedules: {}
+  //   }
+  // }
   componentDidMount() {
+    // this.setState({
+    //   favoriteTeamsSchedules: this.props.favoriteTeams
+    // })
     this.updateSchedules();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.favoriteTeams !== prevProps.favoriteTeams) {
+      this.updateSchedules();
+    }
   }
   updateSchedules = () => {
     if (this.props.favoriteTeams) {
@@ -21,8 +35,8 @@ class DisplaySchedules extends Component {
           }).then((res) => {
             if (res.data.events !== null) {
               const upcomingGames = res.data.events.map((game) => {
-                const regDate = moment(`${game.dateEvent}`, 'YYYY-MM-DD').format('dddd MMMM D, YYYY');
-                const nbaDate = moment(`${game.dateEvent} ${game.strTime}`, 'YYYY-MM-DD HH:mm').subtract(5, 'hours').format('dddd MMMM D, YYYY');
+                const regDate = moment(`${game.dateEvent}`, 'YYYY-MM-DD').format('dddd, MMMM D, YYYY');
+                const nbaDate = moment(`${game.dateEvent} ${game.strTime}`, 'YYYY-MM-DD HH:mm').subtract(5, 'hours').format('dddd, MMMM D, YYYY');
                 if (game.strLeague === 'NHL') {
                   return [regDate, game.strHomeTeam, game.strAwayTeam]
                 } else if (game.strLeague === 'NBA') {
