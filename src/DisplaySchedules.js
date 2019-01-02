@@ -7,9 +7,6 @@ const moment = require('moment');
 moment().format();
 
 class DisplaySchedules extends Component {
-  // componentDidMount() {
-  //   this.updateSchedules();
-  // }
   componentDidUpdate(prevProps) {
     if (this.props.favoriteTeams !== prevProps.favoriteTeams) {
       this.updateSchedules();
@@ -67,7 +64,7 @@ class DisplaySchedules extends Component {
                     team[1].teamSchedule
                     ?
                     team[1].teamSchedule.map((game) => {
-                      const today = moment().format('dddd MMMM D, YYYY');
+                      const today = moment().format('dddd, MMMM D, YYYY');
                       const yesterday = moment().subtract(1, 'day').format('dddd, MMMM D, YYYY');
                       const tomorrow = moment().add(1, 'day').format('dddd, MMMM D, YYYY');
                       let dateOfMatch = game[0];
@@ -109,10 +106,13 @@ class DisplaySchedules extends Component {
       </div>
     )
   }
+  handleClick = () => {
+    this.updateSchedules();
+  }
   render() {
     return (
       <div>
-        <h2 className="section-title">Schedules</h2>
+        <h2 className="section-title schedule-section-title">Schedules <button onClick={this.handleClick} className="refresh">Refresh</button></h2>
         {
           this.props.favoriteTeams
           ?

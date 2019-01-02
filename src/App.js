@@ -10,7 +10,6 @@ import DisplaySchedules from './DisplaySchedules';
 
 const moment = require('moment');
 moment().format();
-const currentDate = moment().format('dddd, MMMM D, YYYY');
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({
@@ -51,12 +50,7 @@ class App extends Component {
       });
   }
   loginGuest = () => {
-    firebase.auth().signInAnonymously().catch(function (error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-    });
+    firebase.auth().signInAnonymously();
   }
   logout = () => {
     auth.signOut()
@@ -74,15 +68,14 @@ class App extends Component {
             <header className="header">
               <div className="wrapper">
                 <h1 className="header__title">Sport Schedules</h1>
-                <p className="header__date">{currentDate}</p>
+                {
+                  this.state.user &&
+                  <p className="header__name">{this.state.user.displayName !== null ? this.state.user.displayName : 'Guest '}<button onClick={this.logout} className="nav__log-in-out">Log Out</button></p>
+                }
                 <nav className="nav">
                   <NavLink to="/schedules" className="nav__link" activeClassName="active">Schedules</NavLink>
                   <NavLink to="/my-teams" className="nav__link" activeClassName="active">My Teams</NavLink>
                   <NavLink to="/leagues" className="nav__link" activeClassName="active">Leagues</NavLink>
-                  {
-                    this.state.user &&
-                    <button onClick={this.logout} className="nav__log-in-out">Log Out</button>
-                  }
                 </nav>
               </div>
             </header>
@@ -117,7 +110,7 @@ class App extends Component {
           </div>
           <footer className="footer">
             <div className="wrapper">
-              <p>&copy; Jonathan 2018 | <a href="https://jonathanhoy.com/" className="portfolio-link">Back to Portfolio</a></p>
+              <p>&copy; Jonathan 2019 | <a href="https://jonathanhoy.com/" className="portfolio-link">Back to Portfolio</a></p>
               <p>API information courtesy of <a href="https://www.thesportsdb.com/api.php">TheSportsDB</a></p>
             </div>
           </footer>
