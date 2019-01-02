@@ -1,0 +1,31 @@
+.swal-modal {
+  border: 2px solid $black;
+  border-radius: 0px;
+}
+
+.swal-title {
+  color: $black;
+}
+
+.swal-text {
+  text-align: center;
+}
+
+.swal-button {
+  color: $white;
+  background: $black;
+  border: 1px solid $black;
+  border-radius: 0px;
+  margin: 0;
+  &:not([disabled]):hover {
+    box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
+    background: $black;
+  }
+  &__loader {
+    width: auto;
+  }
+}
+
+.swal-footer {
+  text-align: center;
+}

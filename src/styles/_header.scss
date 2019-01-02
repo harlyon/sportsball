@@ -19,8 +19,20 @@
     font-size: 2rem;
     line-height: 2;
   }
+  &__name-container {
+    display: flex;
+    justify-content: center;
+  }
   &__name {
     line-height: 2;
+  }
+  &__log-out {
+    border: none;
+    background: none;
+    color: #a3a3a3;
+    text-transform: none;
+    padding: 5px 10px;
+    padding-right: 0;
   }
 }
 
@@ -29,7 +41,7 @@
   margin: 0;
   line-height: 2;
   text-align: center;
-  &__link, &__log-in-out {
+  &__link {
     padding: 5px;
     border: none;
     background: none;
@@ -54,8 +66,8 @@
       grid-column: 1 / 2;
       line-height: normal;
     }
-    &__name {
-      grid-column: 2 / 3;
+    &__name-container {
+      justify-content: flex-end;
     }
     .nav {
       grid-column: 1 / 3;

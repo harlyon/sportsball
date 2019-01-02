@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import firebase from './firebase';
+import swal from 'sweetalert';
 import { BrowserRouter as Router, Route, NavLink, Redirect } from 'react-router-dom';
 import './styles/styles.scss';
 
@@ -51,6 +52,7 @@ class App extends Component {
   }
   loginGuest = () => {
     firebase.auth().signInAnonymously();
+    swal('By logging in as a guest your preferences will not be saved.')
   }
   logout = () => {
     auth.signOut()
@@ -70,7 +72,10 @@ class App extends Component {
                 <h1 className="header__title">Sport Schedules</h1>
                 {
                   this.state.user &&
-                  <p className="header__name">{this.state.user.displayName !== null ? this.state.user.displayName : 'Guest '}<button onClick={this.logout} className="nav__log-in-out">Log Out</button></p>
+                  <div className="header__name-container">
+                    <p className="header__name">{this.state.user.displayName !== null ? this.state.user.displayName : 'Guest'}</p>
+                    <button onClick={this.logout} className="header__log-out">Log Out</button>
+                  </div>
                 }
                 <nav className="nav">
                   <NavLink to="/schedules" className="nav__link" activeClassName="active">Schedules</NavLink>
