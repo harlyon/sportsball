@@ -13,6 +13,9 @@ moment().format();
 const currentDate = moment().format('dddd, MMMM D, YYYY');
 
 const provider = new firebase.auth.GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: 'select_account'
+});
 const auth = firebase.auth();
 
 class App extends Component {
@@ -24,32 +27,18 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    // auth.onAuthStateChanged((user) => {
-    //   if (user) {
-    //     this.setState({
-    //       user: user
-    //     }, () => {
-    //       this.userRef = firebase.database().ref(`/${this.state.user.uid}`);
-    //       this.userRef.on('value', (snapshot) => {
-    //         this.setState({
-    //           favoriteTeams: snapshot.val()
-    //         })
-    //       })
-    //     });
-    //   }
-    // });
     auth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({
           user: user
-        })
+        }, () => {
+          firebase.database().ref(`/${this.state.user.uid}`).on('value', (snapshot) => {
+            this.setState({
+              favoriteTeams: snapshot.val()
+            })
+          })
+        });
       }
-      // this.userRef = firebase.database().ref(`/${this.state.user.uid}`);
-      // this.userRef.on('value', (snapshot) => {
-      //   this.setState({
-      //     favoriteTeams: snapshot.val()
-      //   })
-      // })
     });
   }
   loginGoogle = () => {
@@ -61,14 +50,6 @@ class App extends Component {
         });
       });
   }
-  logout = () => {
-    auth.signOut()
-      .then(() => {
-        this.setState({
-          user: null
-        });
-      });
-  }
   loginGuest = () => {
     firebase.auth().signInAnonymously().catch(function (error) {
       // Handle Errors here.
@@ -76,6 +57,14 @@ class App extends Component {
       var errorMessage = error.message;
       // ...
     });
+  }
+  logout = () => {
+    auth.signOut()
+      .then(() => {
+        this.setState({
+          user: null
+        });
+      });
   }
   render() {
     return (

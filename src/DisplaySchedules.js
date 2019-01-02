@@ -7,18 +7,9 @@ const moment = require('moment');
 moment().format();
 
 class DisplaySchedules extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     favoriteTeamsSchedules: {}
-  //   }
+  // componentDidMount() {
+  //   this.updateSchedules();
   // }
-  componentDidMount() {
-    // this.setState({
-    //   favoriteTeamsSchedules: this.props.favoriteTeams
-    // })
-    this.updateSchedules();
-  }
   componentDidUpdate(prevProps) {
     if (this.props.favoriteTeams !== prevProps.favoriteTeams) {
       this.updateSchedules();
@@ -77,8 +68,8 @@ class DisplaySchedules extends Component {
                     ?
                     team[1].teamSchedule.map((game) => {
                       const today = moment().format('dddd MMMM D, YYYY');
-                      const yesterday = moment().subtract(1, 'day').format('dddd MMMM D, YYYY');
-                      const tomorrow = moment().add(1, 'day').format('dddd MMMM D, YYYY');
+                      const yesterday = moment().subtract(1, 'day').format('dddd, MMMM D, YYYY');
+                      const tomorrow = moment().add(1, 'day').format('dddd, MMMM D, YYYY');
                       let dateOfMatch = game[0];
                       const awayTeam = game[1];
                       const homeTeam = game[2];
