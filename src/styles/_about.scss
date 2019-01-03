@@ -1,0 +1,17 @@
+.about {
+  &__heading {
+    text-align: center;
+  }
+  &__text {
+    i {
+      cursor: default;
+    }
+  }
+}
+
+@media (min-width: 527px) {
+  .about {
+    width: 500px;
+    margin: 0 auto;
+  }
+}

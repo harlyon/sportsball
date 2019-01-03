@@ -8,9 +8,13 @@ body {
   color: #333;
 }
 
-h1, h2, button {
+h1, h2, h3, button {
   font-family: 'Work Sans', sans-serif;
   text-transform: uppercase;
+}
+
+p {
+  line-height: 1.6;
 }
 
 button, i {
@@ -41,14 +45,18 @@ img {
   @include section-title;
 }
 
-.not-a-fan-banner {
+.noFavoriteTeams {
   text-align: center;
-  margin-top: 50px;
-  p {
-    font-size: 2rem;
-  }
-  a {
+  margin-top: 20px;
+  &__link {
+    @include card;
+    border: 1px solid $black;
+    padding: 10px 20px;
     font-size: 1.8rem;
     text-transform: none;
+    text-decoration: none;
+    color: $black;
+    display: inline-block;
+    width: auto;
   }
 }

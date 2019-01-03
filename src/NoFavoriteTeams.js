@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 class NoFavoriteTeams extends Component {
   render() {
     return (
-      <div className="not-a-fan-banner">
-        <p>Not a fan?</p>
-        <Link to="/leagues">Find some teams to follow!</Link>
+      <div className="noFavoriteTeams">
+        <Link to="/leagues" className="noFavoriteTeams__link">Find some teams to follow!</Link>
       </div>
     )
   }

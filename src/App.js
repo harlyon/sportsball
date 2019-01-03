@@ -7,10 +7,12 @@ import './styles/styles.scss';
 import DisplayLeagues from './DisplayLeagues';
 import DisplayFavoriteTeams from './DisplayFavoriteTeams';
 import DisplaySchedules from './DisplaySchedules';
+import About from './About';
 
 
 const moment = require('moment');
 moment().format();
+const currentYear = moment().format('YYYY')
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({
@@ -69,7 +71,7 @@ class App extends Component {
           <div>
             <header className="header">
               <div className="wrapper">
-                <h1 className="header__title">Sport Schedules</h1>
+                <h1 className="header__title">Sportsball</h1>
                 {
                   this.state.user &&
                   <div className="header__name-container">
@@ -81,6 +83,7 @@ class App extends Component {
                   <NavLink to="/schedules" className="nav__link" activeClassName="active">Schedules</NavLink>
                   <NavLink to="/my-teams" className="nav__link" activeClassName="active">My Teams</NavLink>
                   <NavLink to="/leagues" className="nav__link" activeClassName="active">Leagues</NavLink>
+                  <NavLink to="/about" className="nav__link" activeClassName="active">About</NavLink>
                 </nav>
               </div>
             </header>
@@ -96,6 +99,7 @@ class App extends Component {
                       <Route path="/schedules" render={(props) => <DisplaySchedules {...props} favoriteTeams={this.state.favoriteTeams} user={this.state.user} /> } />
                       <Route path="/my-teams" render={(props) => <DisplayFavoriteTeams {...props} favoriteTeams={this.state.favoriteTeams} user={this.state.user} /> } />
                       <Route path="/leagues" render={(props) => <DisplayLeagues {...props} user={this.state.user} /> } />
+                      <Route path="/about" component={About}/>
                   </div>
                 </main>
               )
@@ -115,7 +119,7 @@ class App extends Component {
           </div>
           <footer className="footer">
             <div className="wrapper">
-              <p>&copy; Jonathan 2019 | <a href="https://jonathanhoy.com/" className="portfolio-link">Back to Portfolio</a></p>
+              <p>&copy; Jonathan {currentYear} | <a href="https://jonathanhoy.com/" className="portfolio-link">Back to Portfolio</a></p>
               <p>API information courtesy of <a href="https://www.thesportsdb.com/api.php">TheSportsDB</a></p>
             </div>
           </footer>

@@ -112,7 +112,7 @@ class DisplaySchedules extends Component {
   render() {
     return (
       <div>
-        <h2 className="section-title schedule-section-title">Schedules <i class="fas fa-sync-alt refresh" onClick={this.handleClick}></i></h2>
+        <h2 className="section-title schedule-section-title">Schedules <button className="refresh" onClick={this.handleClick}><i class="fas fa-sync-alt" onClick={this.handleClick}></i></button></h2>
         {
           this.props.favoriteTeams
           ?

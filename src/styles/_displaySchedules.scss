@@ -3,12 +3,9 @@
   display: grid;
   grid-gap: 20px;
   &__team-card {
+    @include card;
     border: 2px solid $black;
     padding: 20px;
-    transition: box-shadow 0.2s;
-    &:hover {
-      box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
-    }
   }
   &__team-info {
     margin: 30px 0;
@@ -31,7 +28,6 @@
     }
   }
   &__date {
-    line-height: 1.6;
     margin-bottom: 16px;
     &:last-child {
       font-size: 1.4rem;
@@ -44,6 +40,25 @@
 
 .event.hidden {
   display: none;
+}
+
+.schedule-section-title {
+  position: relative;
+  .refresh {
+    @include card;
+    display: inline-block;
+    font-size: 1.4rem;
+    padding: 5px 10px;
+    width: auto;
+    border: 1px solid $black;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    &:hover {
+      box-shadow: 0px 0px 10px 2px lighten($black, 5);
+    }
+  }
 }
 
 @media (min-width: 500px) {

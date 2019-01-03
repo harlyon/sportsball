@@ -26,23 +26,6 @@
   }
 }
 
-.schedule-section-title {
-  position: relative;
-  .refresh {
-    @include card;
-    display: inline-block;
-    font-size: 1.4rem;
-    padding: 5px 10px;
-    width: auto;
-    border: 1px solid $black;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-}
-
-
 @media (min-width: 500px) {
   .team {
     &__name {
