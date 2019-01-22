@@ -5,9 +5,9 @@
   left: 0;
   right: 0;
   z-index: 100;
-  .wrapper {
-    display: grid;
-    justify-content: center;
+  &__container {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
   }
   &__title, &__name {
@@ -19,12 +19,13 @@
     font-size: 2rem;
     line-height: 2;
   }
-  &__name-container {
+  &__avatar-logout-container {
     display: flex;
     justify-content: center;
   }
-  &__name {
-    line-height: 2;
+  &__avatar {
+    height: 25px;
+    width: 25px;
   }
   &__log-out {
     border: none;

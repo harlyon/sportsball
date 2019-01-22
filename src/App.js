@@ -8,6 +8,7 @@ import DisplayLeagues from './DisplayLeagues';
 import DisplayFavoriteTeams from './DisplayFavoriteTeams';
 import DisplaySchedules from './DisplaySchedules';
 import About from './About';
+import guest from './assets/guest.jpg';
 
 
 const moment = require('moment');
@@ -71,14 +72,19 @@ class App extends Component {
           <div>
             <header className="header">
               <div className="wrapper">
-                <h1 className="header__title">Sportsball</h1>
-                {
-                  this.state.user &&
-                  <div className="header__name-container">
-                    <p className="header__name">{this.state.user.displayName !== null ? this.state.user.displayName : 'Guest'}</p>
-                    <button onClick={this.logout} className="header__log-out">Log Out</button>
-                  </div>
-                }
+                <div className="header__container">
+                  <h1 className="header__title">Sportsball</h1>
+                  {
+                    this.state.user &&
+                    <div className="header__avatar-logout-container">
+                      <img
+                        src={this.state.user.photoURL ? this.state.user.photoURL : guest}
+                        alt={this.state.user.displayName ? this.state.user.displayName : 'Guest'}
+                        className="header__avatar"/>
+                      <button onClick={this.logout} className="header__log-out">Log Out</button>
+                    </div>
+                  }
+                </div>
                 <nav className="nav">
                   <NavLink to="/schedules" className="nav__link" activeClassName="active">Schedules</NavLink>
                   <NavLink to="/my-teams" className="nav__link" activeClassName="active">My Teams</NavLink>
